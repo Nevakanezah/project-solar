@@ -1,0 +1,59 @@
+[gd_scene load_steps=7 format=3 uid="uid://c1uj63twtyj35"]
+
+[ext_resource type="PackedScene" uid="uid://dt7rhhabjhbvt" path="res://Scenes/player.tscn" id="1_24gyy"]
+[ext_resource type="PackedScene" uid="uid://b82n3jasfmuug" path="res://Scenes/obstacle.tscn" id="1_dqfh5"]
+[ext_resource type="PackedScene" uid="uid://cwulc8kgwxlfe" path="res://Scenes/enemy.tscn" id="1_s1ljt"]
+[ext_resource type="PackedScene" uid="uid://eatb8kpnr1u" path="res://Scenes/Obstacles/invisible_border.tscn" id="2_erifk"]
+[ext_resource type="PackedScene" uid="uid://baed36aj0tlpi" path="res://Scenes/ui.tscn" id="2_l4o6g"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_cyvnr"]
+vertices = PackedVector2Array(1588.06, 891, -379.789, 891, -356.211, -233, 1594.94, -233)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-366, -243, 1605, -243, 1598, 901, -390, 901)])
+
+[node name="Level" type="Node2D"]
+
+[node name="Obstacles" type="Node" parent="."]
+
+[node name="Obstacle" parent="Obstacles" instance=ExtResource("1_dqfh5")]
+position = Vector2(451, 631)
+
+[node name="Obstacle2" parent="Obstacles" instance=ExtResource("1_dqfh5")]
+position = Vector2(747, 284)
+
+[node name="InvisibleBorders" type="Node" parent="Obstacles"]
+
+[node name="InvisibleBorder" parent="Obstacles/InvisibleBorders" instance=ExtResource("2_erifk")]
+position = Vector2(-37, 548)
+scale = Vector2(1, 20)
+
+[node name="InvisibleBorder2" parent="Obstacles/InvisibleBorders" instance=ExtResource("2_erifk")]
+position = Vector2(1954, 582)
+scale = Vector2(1, 20)
+
+[node name="InvisibleBorder3" parent="Obstacles/InvisibleBorders" instance=ExtResource("2_erifk")]
+position = Vector2(952, -37)
+scale = Vector2(35, 1)
+
+[node name="InvisibleBorder4" parent="Obstacles/InvisibleBorders" instance=ExtResource("2_erifk")]
+position = Vector2(965, 1117)
+scale = Vector2(35, 1)
+
+[node name="Projectiles" type="Node" parent="."]
+
+[node name="Enemies" type="Node" parent="."]
+
+[node name="Enemy" parent="Enemies" instance=ExtResource("1_s1ljt")]
+position = Vector2(1017, 262)
+
+[node name="Enemy2" parent="Enemies" instance=ExtResource("1_s1ljt")]
+position = Vector2(115, 526)
+
+[node name="Player" parent="." instance=ExtResource("1_24gyy")]
+position = Vector2(597, 310)
+
+[node name="UI" parent="." instance=ExtResource("2_l4o6g")]
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+position = Vector2(350, 212)
+navigation_polygon = SubResource("NavigationPolygon_cyvnr")
