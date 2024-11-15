@@ -19,7 +19,7 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(-366, -243, 1605, -243,
 position = Vector2(451, 631)
 
 [node name="Obstacle2" parent="Obstacles" instance=ExtResource("1_dqfh5")]
-position = Vector2(747, 284)
+position = Vector2(784, 284)
 
 [node name="InvisibleBorders" type="Node" parent="Obstacles"]
 
