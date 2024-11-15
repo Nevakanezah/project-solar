@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+@export var difficulty_value: float = 1
 @export var invincible_time: float = 0
 @export var enemy_image: Texture2D
 @export var enemy_size: float = 1
