@@ -7,9 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://baed36aj0tlpi" path="res://Scenes/ui.tscn" id="2_l4o6g"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_cyvnr"]
-vertices = PackedVector2Array(1588.06, 891, -379.789, 891, -356.211, -233, 1594.94, -233)
+vertices = PackedVector2Array(940.109, -229.023, 948.883, 520, -362.906, 520, -356.094, -232.961)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-366, -243, 1605, -243, 1598, 901, -390, 901)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-366, -243, 950, -239, 959, 530, -373, 530)])
 
 [node name="Level" type="Node2D"]
 
@@ -24,20 +24,20 @@ position = Vector2(794, 281)
 [node name="InvisibleBorders" type="Node" parent="Obstacles"]
 
 [node name="InvisibleBorder" parent="Obstacles/InvisibleBorders" instance=ExtResource("2_erifk")]
-position = Vector2(-37, 548)
-scale = Vector2(1, 20)
+position = Vector2(-31, 361)
+scale = Vector2(1, 12)
 
 [node name="InvisibleBorder2" parent="Obstacles/InvisibleBorders" instance=ExtResource("2_erifk")]
-position = Vector2(1954, 582)
-scale = Vector2(1, 20)
+position = Vector2(1312, 350)
+scale = Vector2(1, 12)
 
 [node name="InvisibleBorder3" parent="Obstacles/InvisibleBorders" instance=ExtResource("2_erifk")]
-position = Vector2(952, -37)
-scale = Vector2(35, 1)
+position = Vector2(635, -37)
+scale = Vector2(24, 1)
 
 [node name="InvisibleBorder4" parent="Obstacles/InvisibleBorders" instance=ExtResource("2_erifk")]
-position = Vector2(965, 1117)
-scale = Vector2(35, 1)
+position = Vector2(679, 749)
+scale = Vector2(24, 1)
 
 [node name="Projectiles" type="Node" parent="."]
 
