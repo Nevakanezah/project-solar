@@ -3,7 +3,7 @@ extends CharacterBody2D
 @export var invincible_time: float = 0.5
 @export var player_image: Texture2D
 @export var player_size: float = 1
-@export var health: int = 3:
+@export var health: int = 300:
 	set(value):
 		health = value
 		ui.health_label.text = "Health: " + str(health)
@@ -13,6 +13,7 @@ extends CharacterBody2D
 @export var speed: int = 250
 @export var base_damage: float = 1
 @export var damage_mult: float = 1
+@export var bullet_speed: int = 1000
 
 var primary_available: bool = true
 var invincible: bool = false
@@ -30,6 +31,10 @@ func _ready() -> void:
 	
 	if player_image:
 		sprite.texture = player_image
+	
+	# Must wait for UI to be instantiated.
+	await get_tree().create_timer(.05).timeout
+	ui.health_label.text = "Health: " + str(health)
 
 func _process(_delta):
 	if dead:
@@ -50,6 +55,7 @@ func _process(_delta):
 		bullet.global_position = global_position
 		bullet.direction = player_direction
 		bullet.damage = base_damage * damage_mult
+		bullet.speed = bullet_speed
 		projectiles.add_child(bullet)
 
 func hit(damage):
