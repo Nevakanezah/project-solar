@@ -3,4 +3,12 @@
 [ext_resource type="PackedScene" uid="uid://b82n3jasfmuug" path="res://Scenes/obstacle.tscn" id="1_ht5et"]
 
 [node name="InvisibleBorder" instance=ExtResource("1_ht5et")]
+collision_layer = 16
 visibility = false
+
+[node name="NavigationObstacle2D" parent="." index="3"]
+radius = 0.0
+affect_navigation_mesh = false
+carve_navigation_mesh = false
+avoidance_enabled = false
+avoidance_layers = 0

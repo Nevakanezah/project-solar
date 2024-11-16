@@ -26,22 +26,18 @@ position = Vector2(794, 281)
 [node name="InvisibleBorder" parent="Obstacles/InvisibleBorders" instance=ExtResource("2_erifk")]
 position = Vector2(-31, 361)
 scale = Vector2(1, 12)
-invincible = true
 
 [node name="InvisibleBorder2" parent="Obstacles/InvisibleBorders" instance=ExtResource("2_erifk")]
 position = Vector2(1312, 350)
 scale = Vector2(1, 12)
-invincible = true
 
 [node name="InvisibleBorder3" parent="Obstacles/InvisibleBorders" instance=ExtResource("2_erifk")]
 position = Vector2(635, -37)
 scale = Vector2(24, 1)
-invincible = true
 
 [node name="InvisibleBorder4" parent="Obstacles/InvisibleBorders" instance=ExtResource("2_erifk")]
 position = Vector2(679, 749)
 scale = Vector2(24, 1)
-invincible = true
 
 [node name="Projectiles" type="Node" parent="."]
 
