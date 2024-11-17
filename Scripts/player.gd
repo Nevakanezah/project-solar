@@ -3,7 +3,7 @@ extends CharacterBody2D
 @export var invincible_time: float = 0.5
 @export var player_image: Texture2D
 @export var player_size: float = 1
-@export var health: int = 300:
+@export var health: int = 10:
 	set(value):
 		health = value
 		ui.health_label.text = "Health: " + str(health)
@@ -40,11 +40,6 @@ func _process(_delta):
 	if dead:
 		return
 	
-	var direction = Input.get_vector("left","right","up","down")
-	velocity = direction * speed
-	move_and_slide()
-	
-	look_at(get_global_mouse_position())
 	var player_direction = (get_global_mouse_position() - position).normalized()
 	
 	if Input.is_action_pressed("primary") and primary_available:
@@ -57,6 +52,16 @@ func _process(_delta):
 		bullet.damage = base_damage * damage_mult
 		bullet.speed = bullet_speed
 		projectiles.add_child(bullet)
+
+func _physics_process(_delta: float) -> void:
+	if dead:
+		return
+	
+	var direction = Input.get_vector("left","right","up","down")
+	velocity = direction * speed
+	move_and_slide()
+	
+	look_at(get_global_mouse_position())
 
 func hit(damage):
 	if !invincible and !dead:

@@ -28,7 +28,7 @@ func _ready() -> void:
 	
 	self_destruct_timer.start(lifespan)
 
-func _process(delta):
+func _physics_process(delta: float) -> void:
 	position += Vector2(1, 0).rotated(rotation) * delta * speed
 
 func _on_self_destruct_timer_timeout() -> void:
