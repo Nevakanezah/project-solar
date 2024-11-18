@@ -5,6 +5,8 @@ extends Node2D
 @onready var player : Player = get_owner()
 @onready var bullet_cooldown: Timer = $"../BulletCooldown"
 @onready var projectiles: Node = get_node("/root/Level/Projectiles")
+@onready var playershootingaudiostream = $AudioStreamPlayer_shoot
+
 
 var bullet_scene: PackedScene = preload("res://Objects/Scenes/bullet.tscn")
 
@@ -18,6 +20,7 @@ func _physics_process(_delta: float) -> void:
 	if Input.is_action_just_pressed("primary") and attacking:
 		attacking = false
 		bullet_cooldown.start()
+		playershootingaudiostream.play()
 		
 		# If we're aiming at a different side, flip the firing position across the X axis
 		if sign(player.aim_position.x) != sign(firing_position.position.x):
