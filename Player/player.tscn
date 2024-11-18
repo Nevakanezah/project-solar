@@ -1,0 +1,46 @@
+[gd_scene load_steps=8 format=3 uid="uid://dt7rhhabjhbvt"]
+
+[ext_resource type="Script" path="res://Player/Scripts/player.gd" id="1_8ndhk"]
+[ext_resource type="Texture2D" uid="uid://c211of1yjljgw" path="res://icon.svg" id="2_gojew"]
+[ext_resource type="PackedScene" uid="uid://bshyc7o2b8stj" path="res://Util/health_component.tscn" id="3_r2k1o"]
+[ext_resource type="PackedScene" uid="uid://cenya1qutm3l7" path="res://Util/HurtboxComponent.tscn" id="4_sdw4b"]
+[ext_resource type="Script" path="res://Player/Scripts/player_weapon.gd" id="5_c1be6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cead5"]
+size = Vector2(62, 61)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6grma"]
+size = Vector2(52, 54)
+
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
+collision_mask = 26
+script = ExtResource("1_8ndhk")
+
+[node name="FloorCollision" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_cead5")
+
+[node name="PlayerSprite" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_gojew")
+
+[node name="BulletCooldown" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("hurtbox") instance=ExtResource("3_r2k1o")]
+hurtbox = NodePath("../HurtboxComponent")
+
+[node name="HurtboxComponent" parent="." instance=ExtResource("4_sdw4b")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+shape = SubResource("RectangleShape2D_6grma")
+debug_color = Color(0.914066, 0.275567, 0.249061, 0.42)
+
+[node name="PlayerWeapon" type="Node2D" parent="." node_paths=PackedStringArray("firing_position")]
+script = ExtResource("5_c1be6")
+firing_position = NodePath("../FiringPosition")
+
+[node name="FiringPosition" type="Marker2D" parent="."]
+
+[connection signal="timeout" from="BulletCooldown" to="." method="_on_bullet_cooldown_timeout"]

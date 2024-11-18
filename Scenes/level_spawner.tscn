@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://ddud388behuax"]
 
-[ext_resource type="Script" path="res://Scripts/level_spawner.gd" id="1_4i2wj"]
+[ext_resource type="Script" path="res://Scenes/Scripts/level_spawner.gd" id="1_4i2wj"]
 [ext_resource type="PackedScene" uid="uid://eatb8kpnr1u" path="res://Scenes/Obstacles/invisible_border.tscn" id="2_ucq5b"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_3s5vs"]

@@ -1,15 +1,8 @@
 extends CharacterBody2D
 
 @export var difficulty_value: float = 1
-@export var invincible_time: float = 0
 @export var enemy_image: Texture2D
-@export var enemy_size: float = 1
 @export var speed: int = 200
-@export var health: int = 2:
-	set(value):
-		health = value
-		if health <= 0:
-			queue_free()
 @export var melee_damage: int = 1
 @export var attack_speed: float = 0.2
 @export var is_ranged: bool = true
@@ -18,34 +11,32 @@ extends CharacterBody2D
 @export var ranged_attack_speed: float = 1
 @export var bullet_speed: int = 500
 @export var bullet_image: Texture2D
-@export var bullet_size: float = 1
-@export var bullet_lifespan: float = 5
 @export var bullet_inaccuracy: float = 20
 
-var bullet_scene: PackedScene = preload("res://Scenes/bullet.tscn")
+var invulnerable: bool = false
+var alive: bool = true
+
+var bullet_scene: PackedScene = preload("res://Objects/Scenes/bullet.tscn")
 # "active" is just for whether the enemy is doing anything. Set it to false to create a "stun" effect.
 var active: bool = false
 var attack_targets: Array
-var invincible: bool = false
 
 @onready var time: float = randf_range(0, 100)
-@onready var sprite: Sprite2D = $Sprite2D
+@onready var sprite: Sprite2D = $EnemySprite
 @onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
-@onready var attack_timer: Timer = $AttackTimer
-@onready var invincible_timer: Timer = $InvincibleTimer
+@onready var melee_attack_timer: Timer = $MeleeAttackTimer
 @onready var ranged_attack_timer: Timer = $RangedAttackTimer
 @onready var player = get_node("/root/Level/Player")
 @onready var projectiles: Node = get_node("/root/Level/Projectiles")
 
 func _ready() -> void:
 	navigation_agent.target_position = player.global_position
-	scale *= enemy_size
 	
 	if enemy_image:
 		sprite.texture = enemy_image
 	
-	attack_timer.wait_time = attack_speed
-	attack_timer.start()
+	melee_attack_timer.wait_time = attack_speed
+	melee_attack_timer.start()
 	
 	if is_ranged:
 		ranged_attack_timer.wait_time = ranged_attack_speed
@@ -79,14 +70,6 @@ func _on_navigation_timer_timeout() -> void:
 	var circle = Vector2(cos(angle) * ideal_distance, sin(angle) * ideal_distance)
 	navigation_agent.target_position = player.global_position + circle
 
-func hit(damage):
-	if !invincible:
-		if invincible_time != 0:
-			invincible = true
-			invincible_timer.start(invincible_time)
-		
-		health -= damage
-
 func _on_damage_area_body_entered(body: Node2D) -> void:
 	if "hit" in body:
 		attack_targets.append(body)
@@ -94,7 +77,7 @@ func _on_damage_area_body_entered(body: Node2D) -> void:
 		# Hits the player as soon as they enter and then restarts the attack timer so that the
 		# enemy doesn't do more damage than expected.
 		body.hit(melee_damage)
-		attack_timer.start(attack_speed)
+		melee_attack_timer.start(attack_speed)
 
 func _on_damage_area_body_exited(body: Node2D) -> void:
 	if body in attack_targets:
@@ -105,9 +88,6 @@ func _on_attack_timer_timeout() -> void:
 		if "hit" in body:
 			body.hit(melee_damage)
 
-func _on_invincible_timer_timeout() -> void:
-	invincible = false
-
 func _on_ranged_attack_timer_timeout() -> void:
 	if !is_ranged:
 		return
@@ -116,12 +96,9 @@ func _on_ranged_attack_timer_timeout() -> void:
 	
 	var bullet = bullet_scene.instantiate()
 	bullet.global_position = global_position
-	bullet.direction = player_direction
+	bullet.rotation = player_direction.angle()
 	bullet.damage = ranged_damage
-	bullet.is_enemy = true
 	bullet.speed = bullet_speed
-	bullet.bullet_size = bullet_size
-	bullet.lifespan = bullet_lifespan
 	bullet.inaccuracy = bullet_inaccuracy
 	
 	if bullet_image:
