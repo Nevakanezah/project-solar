@@ -1,15 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://dt7rhhabjhbvt"]
+[gd_scene load_steps=7 format=3 uid="uid://dt7rhhabjhbvt"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_8ndhk"]
 [ext_resource type="Texture2D" uid="uid://c211of1yjljgw" path="res://icon.svg" id="2_gojew"]
+[ext_resource type="PackedScene" uid="uid://bshyc7o2b8stj" path="res://Scenes/health_component.tscn" id="3_r2k1o"]
+[ext_resource type="PackedScene" uid="uid://cenya1qutm3l7" path="res://Scenes/HurtboxComponent.tscn" id="4_sdw4b"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cead5"]
 size = Vector2(62, 61)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6grma"]
+size = Vector2(62, 62)
+
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 26
 script = ExtResource("1_8ndhk")
-player_image = ExtResource("2_gojew")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -0.5)
@@ -25,6 +29,13 @@ one_shot = true
 
 [node name="InvincibleTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="HealthComponent" parent="." instance=ExtResource("3_r2k1o")]
+
+[node name="HurtboxComponent" parent="." instance=ExtResource("4_sdw4b")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+shape = SubResource("RectangleShape2D_6grma")
 
 [connection signal="timeout" from="BulletCooldown" to="." method="_on_bullet_cooldown_timeout"]
 [connection signal="timeout" from="InvincibleTimer" to="." method="_on_invincible_timer_timeout"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://eatb8kpnr1u"]
 
-[ext_resource type="PackedScene" uid="uid://b82n3jasfmuug" path="res://Scenes/obstacle.tscn" id="1_ht5et"]
+[ext_resource type="PackedScene" uid="uid://b82n3jasfmuug" path="res://Objects/Scenes/obstacle.tscn" id="1_ht5et"]
 
 [node name="InvisibleBorder" instance=ExtResource("1_ht5et")]
 collision_layer = 16

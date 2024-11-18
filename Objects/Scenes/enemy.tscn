@@ -1,0 +1,69 @@
+[gd_scene load_steps=8 format=3 uid="uid://cwulc8kgwxlfe"]
+
+[ext_resource type="Texture2D" uid="uid://c211of1yjljgw" path="res://icon.svg" id="1_gq0rh"]
+[ext_resource type="Script" path="res://Objects/Scripts/enemy.gd" id="1_xwkit"]
+[ext_resource type="Script" path="res://Objects/Scripts/enemy_weapon.gd" id="3_me6io"]
+[ext_resource type="PackedScene" uid="uid://bshyc7o2b8stj" path="res://Util/health_component.tscn" id="4_5gu80"]
+[ext_resource type="PackedScene" uid="uid://cenya1qutm3l7" path="res://Util/HurtboxComponent.tscn" id="5_fhnjc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_42cxy"]
+size = Vector2(63, 63)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fivnt"]
+size = Vector2(64, 64)
+
+[node name="Enemy" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 12
+script = ExtResource("1_xwkit")
+enemy_image = ExtResource("1_gq0rh")
+
+[node name="FloorCollision" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -0.5)
+shape = SubResource("RectangleShape2D_42cxy")
+
+[node name="MeleeDamageArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeDamageArea"]
+position = Vector2(-0.5, -0.5)
+shape = SubResource("RectangleShape2D_42cxy")
+
+[node name="EnemySprite" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_gq0rh")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_max_distance = 200.0
+avoidance_enabled = true
+radius = 5.0
+
+[node name="NavigationTimer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[node name="MeleeAttackTimer" type="Timer" parent="."]
+wait_time = 0.2
+
+[node name="RangedAttackTimer" type="Timer" parent="."]
+
+[node name="EnemyWeapon" type="Node2D" parent="."]
+script = ExtResource("3_me6io")
+
+[node name="HealthComponent" parent="." instance=ExtResource("4_5gu80")]
+MAX_HEALTH = 2.0
+MAX_GRACE_TIME = 0.0
+
+[node name="HurtboxComponent" parent="." instance=ExtResource("5_fhnjc")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+shape = SubResource("RectangleShape2D_fivnt")
+debug_color = Color(0.913053, 0.26956, 0.301875, 0.42)
+
+[node name="FiringPosition" type="Marker2D" parent="."]
+
+[connection signal="body_entered" from="MeleeDamageArea" to="." method="_on_damage_area_body_entered"]
+[connection signal="body_exited" from="MeleeDamageArea" to="." method="_on_damage_area_body_exited"]
+[connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
+[connection signal="timeout" from="NavigationTimer" to="." method="_on_navigation_timer_timeout"]
+[connection signal="timeout" from="MeleeAttackTimer" to="." method="_on_attack_timer_timeout"]
+[connection signal="timeout" from="RangedAttackTimer" to="." method="_on_ranged_attack_timer_timeout"]
