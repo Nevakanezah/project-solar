@@ -1,45 +1,66 @@
 extends Node2D
 
-@export var firing_position : Marker2D
-@export var rand_firing_delay := 0.0
-
 @onready var weapon_owner : CharacterBody2D = get_owner()
-@onready var bullet_cooldown: Timer = $"../RangedAttackTimer"
+@export var firing_position : Marker2D
+
+@export var max_attack_cooldown := 2.0
+@export var rand_attack_delay := 1.0
+@export var attack_damage := 1.0
+@export var attack_range := 1000.0
+
+@export var bullet_sprite: Texture2D
+@export var bullet_speed := 500.0
+@export var bullet_inaccuracy := 20.0
+
 @onready var projectiles: Node = get_node("/root/Level/Projectiles")
+@onready var player = get_node("/root/Level/Player")
 
 var bullet_scene: PackedScene = preload("res://Objects/Scenes/bullet.tscn")
 
-var timer : Timer
-var attack_time := 0.6
-var attacking = false
+var attack_cooldown_remaining := 3.0
+var attacking = true
 
-func _physics_process(_delta: float) -> void:
-	# CREDIT: https://github.com/Bitlytic/Strategy-GDScript/blob/master/Player/Scripts/player_weapon.gd
-	# =============
+func _physics_process(delta: float) -> void:
+	if attack_range > 0.0 and global_position.distance_to(player.global_position) > attack_range:
+		return
+	
+	if attack_cooldown_remaining > 0.0:
+		attack_cooldown_remaining -= delta
+		
+		if attack_cooldown_remaining <= 0.0:
+			attacking = true
+			attack_cooldown_remaining = 0.0
+	
 	if attacking:
 		attacking = false
-		bullet_cooldown.start()
-		
-		# If we're aiming at a different side, flip the firing position across the X axis
-		if sign(weapon_owner.aim_position.x) != sign(firing_position.position.x):
-			firing_position.position.x *= -1
-		
-		# Spawn a bullet and give it a rotation based on the angle between the firing position and
-		# the player's position.
-		# The bullet will use this rotation to decide its direction.
-		var spawned_bullet := bullet_scene.instantiate()
-		var mouse_direction := get_global_mouse_position() - firing_position.global_position
-		
-		get_tree().root.add_child(spawned_bullet)
-		projectiles.add_child(spawned_bullet)
-		spawned_bullet.global_position = firing_position.global_position
-		spawned_bullet.rotation = mouse_direction.angle()
-	
-	## Future expansion, maybe
-	#for strategy in player.upgrades:
-			#strategy.apply_upgrade(spawned_bullet)
-	
-	# ============
+		attack_cooldown_remaining = max_attack_cooldown + randf_range(rand_attack_delay, -rand_attack_delay)
+		if attack_range > 0.0:
+			_handle_ranged_attack()
+		else:
+			_handle_melee_attack()
 
-func _on_bullet_cooldown_timeout() -> void:
-	attacking = true
+
+func _handle_ranged_attack() -> void:
+	# REFERENCE CREDIT: https://github.com/Bitlytic/Strategy-GDScript/blob/master/Player/Scripts/player_weapon.gd
+	# =============
+	var player_direction = global_position.direction_to(player.global_position)
+	
+	# If we're aiming at a different side, flip the firing position across the X axis
+	if sign(player_direction.x) != sign(firing_position.position.x):
+		firing_position.position.x *= -1
+	
+	var bullet = bullet_scene.instantiate()
+	bullet.is_enemy = true
+	bullet.global_position = firing_position.global_position
+	bullet.rotation = player_direction.angle()
+	bullet.damage = attack_damage
+	bullet.speed = bullet_speed
+	bullet.inaccuracy = bullet_inaccuracy
+	if bullet_sprite:
+		bullet.bullet_image = bullet_sprite
+		
+	projectiles.add_child(bullet)
+	# ============
+	
+func _handle_melee_attack():
+	pass

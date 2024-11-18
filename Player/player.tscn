@@ -13,7 +13,7 @@ size = Vector2(62, 61)
 size = Vector2(52, 54)
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
-collision_mask = 26
+collision_mask = 24
 script = ExtResource("1_8ndhk")
 
 [node name="FloorCollision" type="CollisionShape2D" parent="."]
@@ -24,14 +24,12 @@ shape = SubResource("RectangleShape2D_cead5")
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_gojew")
 
-[node name="BulletCooldown" type="Timer" parent="."]
-wait_time = 0.5
-one_shot = true
-
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("hurtbox") instance=ExtResource("3_r2k1o")]
 hurtbox = NodePath("../HurtboxComponent")
+receives_grace_time = true
 
 [node name="HurtboxComponent" parent="." instance=ExtResource("4_sdw4b")]
+collision_mask = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
 shape = SubResource("RectangleShape2D_6grma")
@@ -42,5 +40,3 @@ script = ExtResource("5_c1be6")
 firing_position = NodePath("../FiringPosition")
 
 [node name="FiringPosition" type="Marker2D" parent="."]
-
-[connection signal="timeout" from="BulletCooldown" to="." method="_on_bullet_cooldown_timeout"]

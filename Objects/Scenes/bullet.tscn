@@ -4,8 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://c211of1yjljgw" path="res://icon.svg" id="2_3ansv"]
 [ext_resource type="PackedScene" uid="uid://ernvkvuh6727" path="res://Util/hitbox_component.tscn" id="3_uoptv"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7yusc"]
-size = Vector2(24, 12)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fs7q4"]
+size = Vector2(20, 8)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x5eed"]
 radius = 6.0
@@ -13,26 +13,23 @@ height = 26.0
 
 [node name="Bullet" type="CharacterBody2D" node_paths=PackedStringArray("hitbox")]
 collision_layer = 2
-collision_mask = 14
+collision_mask = 10
 script = ExtResource("1_dbb0s")
 hitbox = NodePath("HitboxComponent")
 
 [node name="FloorCollision" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_7yusc")
+shape = SubResource("RectangleShape2D_fs7q4")
+disabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.2, 0.1)
 texture = ExtResource("2_3ansv")
 
-[node name="SelfDestructTimer" type="Timer" parent="."]
-wait_time = 5.0
-one_shot = true
-
 [node name="HitboxComponent" parent="." instance=ExtResource("3_uoptv")]
+collision_layer = 2
+collision_mask = 12
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_x5eed")
 debug_color = Color(0.968462, 0.159615, 0.204928, 0.42)
-
-[connection signal="timeout" from="SelfDestructTimer" to="." method="_on_self_destruct_timer_timeout"]
