@@ -9,6 +9,7 @@ extends CharacterBody2D
 @export var ideal_distance: int = 0
 @export var ranged_damage: int = 1
 @export var ranged_attack_speed: float = 1
+@export var attack_range: int = 1000
 @export var bullet_speed: int = 500
 @export var bullet_image: Texture2D
 @export var bullet_inaccuracy: float = 20
@@ -89,7 +90,7 @@ func _on_attack_timer_timeout() -> void:
 			body.hit(melee_damage)
 
 func _on_ranged_attack_timer_timeout() -> void:
-	if !is_ranged:
+	if !is_ranged or global_position.distance_to(player.global_position) > attack_range:
 		return
 	
 	var player_direction = global_position.direction_to(player.global_position)
