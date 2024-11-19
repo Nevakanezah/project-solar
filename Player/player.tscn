@@ -9,8 +9,8 @@
 [ext_resource type="AudioStream" uid="uid://dpqiwg5f0fmuc" path="res://Assets/Audio/SFX/player sfx/sfx_player_shoot.mp3" id="7_xoxns"]
 [ext_resource type="AudioStream" uid="uid://jwunxy61xq7v" path="res://Assets/Audio/SFX/player sfx/sfx_player_hit.mp3" id="8_04xna"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_cead5"]
-size = Vector2(62, 61)
+[sub_resource type="CircleShape2D" id="CircleShape2D_l4xoc"]
+radius = 33.0038
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6grma"]
 size = Vector2(52, 54)
@@ -21,13 +21,13 @@ script = ExtResource("1_8ndhk")
 
 [node name="FloorCollision" type="CollisionShape2D" parent="."]
 position = Vector2(0, -0.5)
-shape = SubResource("RectangleShape2D_cead5")
+shape = SubResource("CircleShape2D_l4xoc")
 
 [node name="PlayerSprite" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_gojew")
 
-[node name="HealthComponent" parent="." node_paths=PackedStringArray("hurtbox") instance=ExtResource("3_r2k1o")]
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("hurtbox") groups=["GlobalPlayerEvents", "Player"] instance=ExtResource("3_r2k1o")]
 hurtbox = NodePath("../HurtboxComponent")
 receives_grace_time = true
 
@@ -44,16 +44,18 @@ firing_position = NodePath("../FiringPosition")
 
 [node name="FiringPosition" type="Marker2D" parent="."]
 
-[node name="AudioStreamPlayer_fs" type="AudioStreamPlayer2D" parent="."]
+[node name="SFX" type="Node" parent="."]
+
+[node name="AudioStreamPlayer_fs" type="AudioStreamPlayer2D" parent="SFX"]
 stream = ExtResource("6_irx67")
+volume_db = 8.0
 bus = &"SFX"
 
-[node name="AudioStreamPlayer_shoot" type="AudioStreamPlayer2D" parent="."]
+[node name="AudioStreamPlayer_shoot" type="AudioStreamPlayer2D" parent="SFX"]
 stream = ExtResource("7_xoxns")
 bus = &"SFX"
 
-[node name="AudioStreamPlayer_hurt" type="AudioStreamPlayer2D" parent="."]
+[node name="AudioStreamPlayer_hurt" type="AudioStreamPlayer2D" parent="SFX"]
 stream = ExtResource("8_04xna")
+volume_db = 15.0
 bus = &"SFX"
-
-[connection signal="timeout" from="BulletCooldown" to="." method="_on_bullet_cooldown_timeout"]
