@@ -1,6 +1,8 @@
 class_name Player
 extends CharacterBody2D
 
+@onready var playerwalkingaudiostream = $AudioStreamPlayer_fs
+
 @export var speed: int = 250
 
 @export var base_damage: float = 1
@@ -22,8 +24,18 @@ func _physics_process(_delta):
 		return
 	
 	var direction = Input.get_vector("left","right","up","down")
+	
 	velocity = direction * speed
 	
+	if is_on_floor():
+		if direction != Vector2.ZERO:
+			if not !playerwalkingaudiostream.playing:
+				playerwalkingaudiostream.play() #start sound on movement
+		else:
+			velocity = velocity.move_toward(Vector2.ZERO, speed)
+			playerwalkingaudiostream.stop() #stop sound when idle
+	else: playerwalkingaudiostream.stop()
+  
 	move_and_slide()
 	look_at(get_global_mouse_position())
 

@@ -7,6 +7,8 @@ signal player_weapon_fired()
 
 @onready var player : Player = get_owner()
 @onready var projectiles: Node = get_node("/root/Level/Projectiles")
+@onready var playershootingaudiostream = $AudioStreamPlayer_shoot
+
 
 var bullet_scene: PackedScene = preload("res://Objects/Scenes/bullet.tscn")
 
@@ -48,4 +50,5 @@ func _handle_ranged_attack() -> void:
 		spawned_bullet.global_position = firing_position.global_position
 		spawned_bullet.rotation = aim_direction.angle()
 	#=============
+		playershootingaudiostream.play()
 		player_weapon_fired.emit()

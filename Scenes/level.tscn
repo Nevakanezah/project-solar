@@ -1,17 +1,15 @@
-[gd_scene load_steps=7 format=3 uid="uid://c1uj63twtyj35"]
+[gd_scene load_steps=8 format=3 uid="uid://c1uj63twtyj35"]
 
 [ext_resource type="PackedScene" uid="uid://dt7rhhabjhbvt" path="res://Player/player.tscn" id="1_24gyy"]
 [ext_resource type="PackedScene" uid="uid://b82n3jasfmuug" path="res://Objects/Scenes/obstacle.tscn" id="1_dqfh5"]
+[ext_resource type="Script" path="res://Scenes/level.gd" id="1_l4aa1"]
 [ext_resource type="PackedScene" uid="uid://cwulc8kgwxlfe" path="res://Objects/Scenes/enemy.tscn" id="1_s1ljt"]
 [ext_resource type="PackedScene" uid="uid://eatb8kpnr1u" path="res://Scenes/Obstacles/invisible_border.tscn" id="2_erifk"]
 [ext_resource type="PackedScene" uid="uid://baed36aj0tlpi" path="res://Scenes/ui.tscn" id="2_l4o6g"]
-
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_cyvnr"]
-vertices = PackedVector2Array(940.109, -229.023, 948.883, 520, -362.906, 520, -356.094, -232.961)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-366, -243, 950, -239, 959, 530, -373, 530)])
+[ext_resource type="AudioStream" uid="uid://bwspkydm5yce0" path="res://Assets/Audio/Music/good_vlad_ugly_loop_130bmp_4_4_battle.wav" id="6_jes3y"]
 
 [node name="Level" type="Node2D"]
+script = ExtResource("1_l4aa1")
 
 [node name="Obstacles" type="Node" parent="."]
 
@@ -54,6 +52,9 @@ position = Vector2(597, 310)
 
 [node name="UI" parent="." instance=ExtResource("2_l4o6g")]
 
-[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
-position = Vector2(350, 212)
-navigation_polygon = SubResource("NavigationPolygon_cyvnr")
+[node name="AudioStreamPlayerBGmusic" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(806, 430)
+stream = ExtResource("6_jes3y")
+volume_db = -0.312
+panning_strength = 1.01
+bus = &"Music"
