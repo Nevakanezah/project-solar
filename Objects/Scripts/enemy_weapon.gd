@@ -2,6 +2,7 @@ extends Node2D
 
 @onready var weapon_owner : CharacterBody2D = get_owner()
 @export var firing_position : Marker2D
+@export var attack_sfx : AudioStreamPlayer2D
 
 @export var max_attack_cooldown := 2.0
 @export var rand_attack_delay := 1.0
@@ -21,6 +22,8 @@ var attack_cooldown_remaining := 3.0
 var attacking = true
 
 func _physics_process(delta: float) -> void:
+	if not player or not player.visible:
+		return
 	if attack_range > 0.0 and global_position.distance_to(player.global_position) > attack_range:
 		return
 	
@@ -61,6 +64,9 @@ func _handle_ranged_attack() -> void:
 		
 	projectiles.add_child(bullet)
 	# ============
+	if attack_sfx and not attack_sfx.playing:
+		attack_sfx.pitch_scale = randf_range(0.7, 1.3)
+		attack_sfx.play()
 	
 func _handle_melee_attack():
 	pass

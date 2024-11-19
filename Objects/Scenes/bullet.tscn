@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://goqft4e6du1x"]
 
 [ext_resource type="Script" path="res://Scenes/Scripts/bullet.gd" id="1_dbb0s"]
-[ext_resource type="Texture2D" uid="uid://c211of1yjljgw" path="res://icon.svg" id="2_3ansv"]
+[ext_resource type="Texture2D" uid="uid://dtu0btt58uck" path="res://Assets/Art/Sprite/small_bullet2.png" id="2_6fxja"]
 [ext_resource type="PackedScene" uid="uid://ernvkvuh6727" path="res://Util/hitbox_component.tscn" id="3_uoptv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fs7q4"]
@@ -22,8 +22,11 @@ shape = SubResource("RectangleShape2D_fs7q4")
 disabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.2, 0.1)
-texture = ExtResource("2_3ansv")
+rotation = 1.5708
+scale = Vector2(0.8, 2)
+texture = ExtResource("2_6fxja")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 13.4269)
 
 [node name="HitboxComponent" parent="." instance=ExtResource("3_uoptv")]
 collision_layer = 2

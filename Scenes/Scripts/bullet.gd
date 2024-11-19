@@ -31,11 +31,7 @@ func _physics_process(delta):
 	var direction = Vector2.RIGHT.rotated(rotation + deg_to_rad(ran_accuracy))
 	velocity = direction * speed
 	
-	var collision := move_and_collide(velocity*delta)
-	if collision:
-		if collision.get_collider().is_class("HurtboxComponent") \
-		or collision.get_collider().is_class("StaticBody2D"):
-			queue_free()
+	move_and_slide()
 	
 	if lifespan > 0.0:
 		lifespan -= delta

@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+@onready var sprite: Sprite2D = $EnemySprite
 @export var difficulty_value: float = 1
 @export var speed: int = 200
 
@@ -11,7 +12,6 @@ extends CharacterBody2D
 @onready var time: float = randf_range(0, 100)
 @onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
 
-@onready var sprite: Sprite2D = $EnemySprite
 @onready var player = get_node("/root/Level/Player")
 @onready var health_component: HealthComponent = $HealthComponent
 

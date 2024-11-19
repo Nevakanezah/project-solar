@@ -1,7 +1,8 @@
 class_name Player
 extends CharacterBody2D
 
-@onready var playerwalkingaudiostream = $AudioStreamPlayer_fs
+@onready var playerwalkingaudiostream = $"SFX/AudioStreamPlayer_fs"
+@onready var asp_player_hurt = $"SFX/AudioStreamPlayer_hurt"
 
 @export var speed: int = 250
 
@@ -19,30 +20,31 @@ func _ready() -> void:
 	await get_tree().create_timer(.05).timeout
 	ui.health_label.text = "Health: " + str(health_component.health)
 
-func _physics_process(_delta):
-	if !health_component.alive:
+func _physics_process(delta):
+	if not health_component.alive:
 		return
 	
 	var direction = Input.get_vector("left","right","up","down")
 	
-	velocity = direction * speed
-	
-	if is_on_floor():
-		if direction != Vector2.ZERO:
-			if not !playerwalkingaudiostream.playing:
-				playerwalkingaudiostream.play() #start sound on movement
-		else:
-			velocity = velocity.move_toward(Vector2.ZERO, speed)
-			playerwalkingaudiostream.stop() #stop sound when idle
-	else: playerwalkingaudiostream.stop()
+	if direction != Vector2.ZERO:
+		#velocity = direction * speed
+		velocity = velocity.move_toward(direction * speed, delta*speed*8)
+		
+		if not playerwalkingaudiostream.playing:
+			playerwalkingaudiostream.pitch_scale = randf_range(0.9, 1.2)
+			playerwalkingaudiostream.play() #start sound on movement
+	else:
+		velocity = velocity.move_toward(Vector2.ZERO, delta*speed*3)
+		playerwalkingaudiostream.stop() #stop sound when idle
   
 	move_and_slide()
 	look_at(get_global_mouse_position())
 
 func _on_health_changed(health : float):
 	ui.health_label.text = "Health: " + str(health_component.health)
+	asp_player_hurt.play()
 	if health <= 0:
 		_on_player_killed_event()
 
 func _on_player_killed_event():
-	queue_free()
+	visible = false
