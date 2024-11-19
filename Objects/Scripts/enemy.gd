@@ -1,49 +1,34 @@
 extends CharacterBody2D
 
 @export var difficulty_value: float = 1
-@export var enemy_image: Texture2D
 @export var speed: int = 200
+
 @export var melee_damage: int = 1
 @export var attack_speed: float = 0.2
-@export var is_ranged: bool = true
-@export var ideal_distance: int = 0
-@export var ranged_damage: int = 1
-@export var ranged_attack_speed: float = 1
-@export var attack_range: int = 1000
-@export var bullet_speed: int = 500
-@export var bullet_image: Texture2D
-@export var bullet_inaccuracy: float = 20
+@onready var melee_attack_timer: Timer = $MeleeAttackTimer
+
+@export var ideal_distance : int = 300
+@onready var time: float = randf_range(0, 100)
+@onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
+
+@onready var sprite: Sprite2D = $EnemySprite
+@onready var player = get_node("/root/Level/Player")
+@onready var health_component: HealthComponent = $HealthComponent
 
 var invulnerable: bool = false
 var alive: bool = true
 
-var bullet_scene: PackedScene = preload("res://Objects/Scenes/bullet.tscn")
 # "active" is just for whether the enemy is doing anything. Set it to false to create a "stun" effect.
 var active: bool = false
 var attack_targets: Array
 
-@onready var time: float = randf_range(0, 100)
-@onready var sprite: Sprite2D = $EnemySprite
-@onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
-@onready var melee_attack_timer: Timer = $MeleeAttackTimer
-@onready var ranged_attack_timer: Timer = $RangedAttackTimer
-@onready var player = get_node("/root/Level/Player")
-@onready var projectiles: Node = get_node("/root/Level/Projectiles")
-
 func _ready() -> void:
-	navigation_agent.target_position = player.global_position
+	health_component.health_changed.connect(_on_health_changed)
 	
-	if enemy_image:
-		sprite.texture = enemy_image
+	navigation_agent.target_position = player.global_position
 	
 	melee_attack_timer.wait_time = attack_speed
 	melee_attack_timer.start()
-	
-	if is_ranged:
-		ranged_attack_timer.wait_time = ranged_attack_speed
-		ranged_attack_timer.start()
-		
-		ideal_distance = 300
 	
 	# active must start false and be set to true to avoid an annoying little inconsequential error
 	# that happens whenever the enemy tries to get the next path position before the navigation 
@@ -89,20 +74,6 @@ func _on_attack_timer_timeout() -> void:
 		if "hit" in body:
 			body.hit(melee_damage)
 
-func _on_ranged_attack_timer_timeout() -> void:
-	if !is_ranged or global_position.distance_to(player.global_position) > attack_range:
-		return
-	
-	var player_direction = global_position.direction_to(player.global_position)
-	
-	var bullet = bullet_scene.instantiate()
-	bullet.global_position = global_position
-	bullet.rotation = player_direction.angle()
-	bullet.damage = ranged_damage
-	bullet.speed = bullet_speed
-	bullet.inaccuracy = bullet_inaccuracy
-	
-	if bullet_image:
-		bullet.bullet_image = bullet_image
-	
-	projectiles.add_child(bullet)
+func _on_health_changed(health : float):
+	if health <= 0:
+		queue_free()

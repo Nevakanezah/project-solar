@@ -14,9 +14,8 @@ size = Vector2(64, 64)
 
 [node name="Enemy" type="CharacterBody2D"]
 collision_layer = 4
-collision_mask = 12
+collision_mask = 28
 script = ExtResource("1_xwkit")
-enemy_image = ExtResource("1_gq0rh")
 
 [node name="FloorCollision" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, -0.5)
@@ -44,16 +43,18 @@ autostart = true
 [node name="MeleeAttackTimer" type="Timer" parent="."]
 wait_time = 0.2
 
-[node name="RangedAttackTimer" type="Timer" parent="."]
-
-[node name="EnemyWeapon" type="Node2D" parent="."]
+[node name="EnemyWeapon" type="Node2D" parent="." node_paths=PackedStringArray("firing_position")]
 script = ExtResource("3_me6io")
+firing_position = NodePath("../FiringPosition")
 
-[node name="HealthComponent" parent="." instance=ExtResource("4_5gu80")]
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("hurtbox") instance=ExtResource("4_5gu80")]
+hurtbox = NodePath("../HurtboxComponent")
 MAX_HEALTH = 2.0
 MAX_GRACE_TIME = 0.0
 
 [node name="HurtboxComponent" parent="." instance=ExtResource("5_fhnjc")]
+collision_layer = 4
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
 shape = SubResource("RectangleShape2D_fivnt")
@@ -66,4 +67,3 @@ debug_color = Color(0.913053, 0.26956, 0.301875, 0.42)
 [connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
 [connection signal="timeout" from="NavigationTimer" to="." method="_on_navigation_timer_timeout"]
 [connection signal="timeout" from="MeleeAttackTimer" to="." method="_on_attack_timer_timeout"]
-[connection signal="timeout" from="RangedAttackTimer" to="." method="_on_ranged_attack_timer_timeout"]

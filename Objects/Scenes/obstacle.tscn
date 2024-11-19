@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://b82n3jasfmuug"]
+[gd_scene load_steps=7 format=3 uid="uid://b82n3jasfmuug"]
 
 [ext_resource type="Texture2D" uid="uid://c211of1yjljgw" path="res://icon.svg" id="1_guhml"]
 [ext_resource type="Script" path="res://Scenes/Scripts/obstacle.gd" id="1_sbwpf"]
+[ext_resource type="PackedScene" uid="uid://cenya1qutm3l7" path="res://Util/HurtboxComponent.tscn" id="3_604x4"]
+[ext_resource type="PackedScene" uid="uid://bshyc7o2b8stj" path="res://Util/health_component.tscn" id="4_hwphr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_54sci"]
 size = Vector2(64, 64)
@@ -17,12 +19,6 @@ script = ExtResource("1_sbwpf")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_54sci")
 
-[node name="DamageArea" type="Area2D" parent="."]
-collision_layer = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
-shape = SubResource("RectangleShape2D_my1b6")
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_guhml")
@@ -35,6 +31,13 @@ carve_navigation_mesh = true
 [node name="AttackTimer" type="Timer" parent="."]
 wait_time = 0.2
 
-[connection signal="body_entered" from="DamageArea" to="." method="_on_damage_area_body_entered"]
-[connection signal="body_exited" from="DamageArea" to="." method="_on_damage_area_body_exited"]
+[node name="HurtboxComponent" parent="." instance=ExtResource("3_604x4")]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="HurtboxComponent"]
+shape = SubResource("RectangleShape2D_my1b6")
+
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("hurtbox") instance=ExtResource("4_hwphr")]
+hurtbox = NodePath("../HurtboxComponent")
+invulnerable = true
+
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
