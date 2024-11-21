@@ -4,10 +4,10 @@ signal player_weapon_fired()
 
 @export var firing_position : Marker2D
 @export var max_attack_cooldown := 0.6
+@export var enabled := true
 
 @onready var player : Player = get_owner()
 @onready var projectiles: Node = get_node("/root/Level/Projectiles")
-@onready var playershootingaudiostream = $"../SFX/AudioStreamPlayer_shoot"
 
 var bullet_scene: PackedScene = preload("res://Objects/Scenes/bullet.tscn")
 
@@ -15,7 +15,8 @@ var attack_cooldown_remaining := 0.0
 var attacking = true
 
 func _physics_process(delta: float) -> void:
-	
+	if not enabled:
+		return
 	if attack_cooldown_remaining > 0.0:
 		attack_cooldown_remaining -= delta
 		
@@ -49,5 +50,5 @@ func _handle_ranged_attack() -> void:
 		projectiles.add_child(spawned_bullet)
 		spawned_bullet.global_position = firing_position.global_position
 		spawned_bullet.rotation = aim_direction.angle()
-		playershootingaudiostream.play()
+		GlobalSoundManager.play_gunshot()
 		player_weapon_fired.emit()

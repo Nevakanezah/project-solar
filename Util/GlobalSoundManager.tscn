@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://b3fb508li2luj"]
+
+[ext_resource type="Script" path="res://Util/Scripts/global_sound_manager.gd" id="1_cq6b3"]
+[ext_resource type="AudioStream" uid="uid://dwh2a4s3b4ls8" path="res://Assets/Audio/SFX/player sfx/sfx_player_fs.mp3" id="2_0g2dm"]
+[ext_resource type="AudioStream" uid="uid://dpqiwg5f0fmuc" path="res://Assets/Audio/SFX/player sfx/sfx_player_shoot.mp3" id="3_uh06a"]
+[ext_resource type="AudioStream" uid="uid://jwunxy61xq7v" path="res://Assets/Audio/SFX/player sfx/sfx_player_hit.mp3" id="4_qvy3q"]
+[ext_resource type="AudioStream" uid="uid://ddpumr7iptml4" path="res://Assets/Audio/SFX/sfx_lose_stinger.mp3" id="5_gyby3"]
+
+[node name="GlobalSoundManager" type="Node" groups=["GlobalPlayerEvents"]]
+script = ExtResource("1_cq6b3")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="sfx_footstep" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_0g2dm")
+volume_db = 8.0
+bus = &"SFX"
+
+[node name="sfx_shoot" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_uh06a")
+max_polyphony = 10
+
+[node name="sfx_hurt" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_qvy3q")
+volume_db = 15.0
+bus = &"SFX"
+
+[node name="sfx_player_die" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_gyby3")

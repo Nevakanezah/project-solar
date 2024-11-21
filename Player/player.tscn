@@ -1,13 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://dt7rhhabjhbvt"]
+[gd_scene load_steps=8 format=3 uid="uid://dt7rhhabjhbvt"]
 
 [ext_resource type="Script" path="res://Player/Scripts/player.gd" id="1_8ndhk"]
 [ext_resource type="Texture2D" uid="uid://c211of1yjljgw" path="res://icon.svg" id="2_gojew"]
 [ext_resource type="PackedScene" uid="uid://bshyc7o2b8stj" path="res://Util/health_component.tscn" id="3_r2k1o"]
 [ext_resource type="PackedScene" uid="uid://cenya1qutm3l7" path="res://Util/HurtboxComponent.tscn" id="4_sdw4b"]
 [ext_resource type="Script" path="res://Player/Scripts/player_weapon.gd" id="5_c1be6"]
-[ext_resource type="AudioStream" uid="uid://dwh2a4s3b4ls8" path="res://Assets/Audio/SFX/player sfx/sfx_player_fs.mp3" id="6_irx67"]
-[ext_resource type="AudioStream" uid="uid://dpqiwg5f0fmuc" path="res://Assets/Audio/SFX/player sfx/sfx_player_shoot.mp3" id="7_xoxns"]
-[ext_resource type="AudioStream" uid="uid://jwunxy61xq7v" path="res://Assets/Audio/SFX/player sfx/sfx_player_hit.mp3" id="8_04xna"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_l4xoc"]
 radius = 33.0038
@@ -43,19 +40,3 @@ script = ExtResource("5_c1be6")
 firing_position = NodePath("../FiringPosition")
 
 [node name="FiringPosition" type="Marker2D" parent="."]
-
-[node name="SFX" type="Node" parent="."]
-
-[node name="AudioStreamPlayer_fs" type="AudioStreamPlayer2D" parent="SFX"]
-stream = ExtResource("6_irx67")
-volume_db = 8.0
-bus = &"SFX"
-
-[node name="AudioStreamPlayer_shoot" type="AudioStreamPlayer2D" parent="SFX"]
-stream = ExtResource("7_xoxns")
-bus = &"SFX"
-
-[node name="AudioStreamPlayer_hurt" type="AudioStreamPlayer2D" parent="SFX"]
-stream = ExtResource("8_04xna")
-volume_db = 15.0
-bus = &"SFX"

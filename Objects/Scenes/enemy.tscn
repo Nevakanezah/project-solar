@@ -1,11 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://cwulc8kgwxlfe"]
+[gd_scene load_steps=8 format=3 uid="uid://cwulc8kgwxlfe"]
 
 [ext_resource type="Texture2D" uid="uid://c211of1yjljgw" path="res://icon.svg" id="1_gq0rh"]
 [ext_resource type="Script" path="res://Objects/Scripts/enemy.gd" id="1_xwkit"]
 [ext_resource type="Script" path="res://Objects/Scripts/enemy_weapon.gd" id="3_me6io"]
 [ext_resource type="PackedScene" uid="uid://bshyc7o2b8stj" path="res://Util/health_component.tscn" id="4_5gu80"]
 [ext_resource type="PackedScene" uid="uid://cenya1qutm3l7" path="res://Util/HurtboxComponent.tscn" id="5_fhnjc"]
-[ext_resource type="AudioStream" uid="uid://cmd2s6enge0ji" path="res://Assets/Audio/SFX/enemy sfx/sfx_enemy_shoot.mp3" id="6_mc6l3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_42cxy"]
 size = Vector2(63, 63)
@@ -15,7 +14,7 @@ size = Vector2(64, 64)
 
 [node name="Enemy" type="CharacterBody2D"]
 collision_layer = 4
-collision_mask = 28
+collision_mask = 12
 script = ExtResource("1_xwkit")
 
 [node name="FloorCollision" type="CollisionShape2D" parent="."]
@@ -44,10 +43,9 @@ autostart = true
 [node name="MeleeAttackTimer" type="Timer" parent="."]
 wait_time = 0.2
 
-[node name="EnemyWeapon" type="Node2D" parent="." node_paths=PackedStringArray("firing_position", "attack_sfx")]
+[node name="EnemyWeapon" type="Node2D" parent="." node_paths=PackedStringArray("firing_position")]
 script = ExtResource("3_me6io")
 firing_position = NodePath("../FiringPosition")
-attack_sfx = NodePath("../ASP_gunshot")
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("hurtbox") instance=ExtResource("4_5gu80")]
 hurtbox = NodePath("../HurtboxComponent")
@@ -63,9 +61,6 @@ shape = SubResource("RectangleShape2D_fivnt")
 debug_color = Color(0.913053, 0.26956, 0.301875, 0.42)
 
 [node name="FiringPosition" type="Marker2D" parent="."]
-
-[node name="ASP_gunshot" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("6_mc6l3")
 
 [connection signal="body_entered" from="MeleeDamageArea" to="." method="_on_damage_area_body_entered"]
 [connection signal="body_exited" from="MeleeDamageArea" to="." method="_on_damage_area_body_exited"]

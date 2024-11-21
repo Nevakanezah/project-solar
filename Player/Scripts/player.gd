@@ -1,9 +1,6 @@
 class_name Player
 extends CharacterBody2D
 
-@onready var playerwalkingaudiostream = $"SFX/AudioStreamPlayer_fs"
-@onready var asp_player_hurt = $"SFX/AudioStreamPlayer_hurt"
-
 @export var speed: int = 250
 
 @export var base_damage: float = 1
@@ -29,22 +26,21 @@ func _physics_process(delta):
 	if direction != Vector2.ZERO:
 		#velocity = direction * speed
 		velocity = velocity.move_toward(direction * speed, delta*speed*8)
-		
-		if not playerwalkingaudiostream.playing:
-			playerwalkingaudiostream.pitch_scale = randf_range(0.9, 1.2)
-			playerwalkingaudiostream.play() #start sound on movement
+		GlobalSoundManager.play_footsteps()
 	else:
 		velocity = velocity.move_toward(Vector2.ZERO, delta*speed*3)
-		playerwalkingaudiostream.stop() #stop sound when idle
+		GlobalSoundManager.stop_footsteps()
   
 	move_and_slide()
 	look_at(get_global_mouse_position())
 
 func _on_health_changed(health : float):
 	ui.health_label.text = "Health: " + str(health_component.health)
-	asp_player_hurt.play()
+	GlobalSoundManager.play_hurt()
 	if health <= 0:
 		_on_player_killed_event()
 
 func _on_player_killed_event():
 	visible = false
+	$PlayerWeapon.enabled = false
+	get_tree().call_group("GlobalPlayerEvents", "global_player_died_event")
