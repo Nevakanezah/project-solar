@@ -24,7 +24,7 @@ shape = SubResource("CircleShape2D_l4xoc")
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_gojew")
 
-[node name="HealthComponent" parent="." node_paths=PackedStringArray("hurtbox") groups=["GlobalPlayerEvents", "Player"] instance=ExtResource("3_r2k1o")]
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("hurtbox") groups=["GlobalPlayerEvents"] instance=ExtResource("3_r2k1o")]
 hurtbox = NodePath("../HurtboxComponent")
 receives_grace_time = true
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d0w68dlts6ljw"
-path="res://.godot/imported/titlePlaceholder.png-ad1d9e6aa0507da774a55c6d20a8218f.ctex"
+uid="uid://u081hddphrb2"
+path="res://.godot/imported/stone tile copy.png-c4ba67410e764b382205ee0b04cea33b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Art/titlePlaceholder.png"
-dest_files=["res://.godot/imported/titlePlaceholder.png-ad1d9e6aa0507da774a55c6d20a8218f.ctex"]
+source_file="res://Assets/Art/Object/stone tile copy.png"
+dest_files=["res://.godot/imported/stone tile copy.png-c4ba67410e764b382205ee0b04cea33b.ctex"]
 
 [params]
 

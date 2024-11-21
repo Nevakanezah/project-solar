@@ -46,7 +46,6 @@ func _handle_ranged_attack() -> void:
 		var spawned_bullet := bullet_scene.instantiate()
 		
 		spawned_bullet.is_enemy = false
-		spawned_bullet.get_node("Sprite2D").texture = load("res://Assets/Art/Sprite/small_bullet3.png")
 		projectiles.add_child(spawned_bullet)
 		spawned_bullet.global_position = firing_position.global_position
 		spawned_bullet.rotation = aim_direction.angle()
