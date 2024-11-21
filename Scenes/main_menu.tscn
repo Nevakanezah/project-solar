@@ -1,8 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://b0ngw6rle4cbk"]
+[gd_scene load_steps=11 format=3 uid="uid://b0ngw6rle4cbk"]
 
 [ext_resource type="Script" path="res://Scenes/Scripts/main_menu.gd" id="1_jckcn"]
 [ext_resource type="AudioStream" uid="uid://b0jprx0jaqbfy" path="res://Assets/Audio/Music/good_vlad_ugly_loop_130bmp_4_4_upgrade_menu.wav" id="2_48s6k"]
-[ext_resource type="Texture2D" uid="uid://d0w68dlts6ljw" path="res://Assets/Art/titlePlaceholder.png" id="2_sfdtl"]
+[ext_resource type="Texture2D" uid="uid://bos8wsompsavi" path="res://Assets/Art/Title Card.png" id="2_rki4v"]
 
 [sub_resource type="Gradient" id="Gradient_rqjq0"]
 colors = PackedColorArray(0, 0, 0, 0.654902, 0, 0, 0, 0.654902)
@@ -22,6 +22,17 @@ font_size = 46
 gradient = SubResource("Gradient_rqjq0")
 fill_to = Vector2(0, 1)
 
+[sub_resource type="SystemFont" id="SystemFont_a6k1w"]
+font_names = PackedStringArray("Carnivalee Freakshow")
+
+[sub_resource type="LabelSettings" id="LabelSettings_x21tk"]
+font = SubResource("SystemFont_a6k1w")
+font_size = 156
+font_color = Color(0.311727, 0.140921, 0, 1)
+shadow_size = 11
+shadow_color = Color(0, 0, 0, 0.168627)
+shadow_offset = Vector2(4.505, 4.075)
+
 [node name="MainMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -38,13 +49,15 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_sfdtl")
+texture = ExtResource("2_rki4v")
 
 [node name="Menu" type="TextureRect" parent="."]
+layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="StartButton" type="TextureButton" parent="Menu"]
+layout_mode = 0
 offset_left = 1006.0
 offset_top = 530.0
 offset_right = 1252.0
@@ -63,6 +76,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="QuitButton" type="TextureButton" parent="Menu"]
+layout_mode = 0
 offset_left = 1007.0
 offset_top = 616.0
 offset_right = 1254.0
@@ -71,6 +85,7 @@ texture_normal = SubResource("GradientTexture2D_rqfc3")
 stretch_mode = 0
 
 [node name="Label" type="Label" parent="Menu/QuitButton"]
+layout_mode = 0
 offset_left = 2.0
 offset_right = 245.0
 offset_bottom = 65.0
@@ -83,6 +98,17 @@ vertical_alignment = 1
 stream = ExtResource("2_48s6k")
 autoplay = true
 bus = &"Music"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 677.0
+offset_top = -7.0
+offset_right = 1270.0
+offset_bottom = 446.0
+text = "VAMPYUR
+GAEM"
+label_settings = SubResource("LabelSettings_x21tk")
+horizontal_alignment = 1
 
 [connection signal="pressed" from="Menu/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="Menu/QuitButton" to="." method="_on_quit_button_pressed"]

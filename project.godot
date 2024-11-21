@@ -39,6 +39,9 @@ folder_colors={
 [global_group]
 
 GlobalPlayerEvents=""
+Player=""
+Enemy=""
+Obstacle=""
 
 [input]
 

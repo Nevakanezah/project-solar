@@ -12,7 +12,7 @@ size = Vector2(63, 63)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fivnt"]
 size = Vector2(64, 64)
 
-[node name="Enemy" type="CharacterBody2D"]
+[node name="Enemy" type="CharacterBody2D" groups=["Enemy"]]
 collision_layer = 4
 collision_mask = 12
 script = ExtResource("1_xwkit")

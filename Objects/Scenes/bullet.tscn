@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://goqft4e6du1x"]
 
 [ext_resource type="Script" path="res://Scenes/Scripts/bullet.gd" id="1_dbb0s"]
-[ext_resource type="Texture2D" uid="uid://dtu0btt58uck" path="res://Assets/Art/Sprite/small_bullet2.png" id="2_6fxja"]
+[ext_resource type="Texture2D" uid="uid://baud5y6v1qwb2" path="res://Assets/Art/Sprite/bullet copy.png" id="2_ccofk"]
 [ext_resource type="PackedScene" uid="uid://ernvkvuh6727" path="res://Util/hitbox_component.tscn" id="3_uoptv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fs7q4"]
@@ -22,11 +22,10 @@ shape = SubResource("RectangleShape2D_fs7q4")
 disabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-rotation = 1.5708
-scale = Vector2(0.8, 2)
-texture = ExtResource("2_6fxja")
+texture = ExtResource("2_ccofk")
+offset = Vector2(1.23, 1.43)
 region_enabled = true
-region_rect = Rect2(0, 0, 16, 13.4269)
+region_rect = Rect2(0, 0, 32, 32)
 
 [node name="HitboxComponent" parent="." instance=ExtResource("3_uoptv")]
 collision_layer = 2
@@ -36,3 +35,24 @@ collision_mask = 12
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_x5eed")
 debug_color = Color(0.968462, 0.159615, 0.204928, 0.42)
+
+[node name="ImpactParticles" type="CPUParticles2D" parent="."]
+z_index = 1
+z_as_relative = false
+emitting = false
+amount = 20
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.88
+lifetime_randomness = 0.75
+local_coords = true
+emission_shape = 1
+emission_sphere_radius = 3.59
+spread = 35.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 300.0
+initial_velocity_max = 300.0
+angular_velocity_max = 720.0
+scale_amount_min = 3.0
+scale_amount_max = 3.0
+color = Color(0, 0, 0, 0.00392157)
