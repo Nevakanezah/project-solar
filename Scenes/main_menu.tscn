@@ -1,0 +1,88 @@
+[gd_scene load_steps=9 format=3 uid="uid://b0ngw6rle4cbk"]
+
+[ext_resource type="Script" path="res://Scenes/Scripts/main_menu.gd" id="1_jckcn"]
+[ext_resource type="AudioStream" uid="uid://b0jprx0jaqbfy" path="res://Assets/Audio/Music/good_vlad_ugly_loop_130bmp_4_4_upgrade_menu.wav" id="2_48s6k"]
+[ext_resource type="Texture2D" uid="uid://d0w68dlts6ljw" path="res://Assets/Art/titlePlaceholder.png" id="2_sfdtl"]
+
+[sub_resource type="Gradient" id="Gradient_rqjq0"]
+colors = PackedColorArray(0, 0, 0, 0.654902, 0, 0, 0, 0.654902)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_jvr6d"]
+gradient = SubResource("Gradient_rqjq0")
+fill_to = Vector2(0, 1)
+
+[sub_resource type="SystemFont" id="SystemFont_lpqwg"]
+font_names = PackedStringArray("Comic Sans MS")
+
+[sub_resource type="LabelSettings" id="LabelSettings_8yudv"]
+font = SubResource("SystemFont_lpqwg")
+font_size = 46
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_rqfc3"]
+gradient = SubResource("Gradient_rqjq0")
+fill_to = Vector2(0, 1)
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jckcn")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_sfdtl")
+
+[node name="Menu" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="StartButton" type="TextureButton" parent="Menu"]
+offset_left = 1006.0
+offset_top = 530.0
+offset_right = 1252.0
+offset_bottom = 594.0
+texture_normal = SubResource("GradientTexture2D_jvr6d")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="Menu/StartButton"]
+layout_mode = 0
+offset_left = 2.0
+offset_right = 245.0
+offset_bottom = 65.0
+text = "START"
+label_settings = SubResource("LabelSettings_8yudv")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="QuitButton" type="TextureButton" parent="Menu"]
+offset_left = 1007.0
+offset_top = 616.0
+offset_right = 1254.0
+offset_bottom = 680.0
+texture_normal = SubResource("GradientTexture2D_rqfc3")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="Menu/QuitButton"]
+offset_left = 2.0
+offset_right = 245.0
+offset_bottom = 65.0
+text = "QUIT"
+label_settings = SubResource("LabelSettings_8yudv")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MenuSong" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_48s6k")
+autoplay = true
+bus = &"Music"
+
+[connection signal="pressed" from="Menu/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="Menu/QuitButton" to="." method="_on_quit_button_pressed"]

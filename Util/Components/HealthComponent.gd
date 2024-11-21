@@ -41,7 +41,6 @@ func _on_damaged(attack: Attack):
 	if health <= 0:
 		health = 0
 		alive = false
-		get_tree().call_group("GlobalPlayerEvents", "global_player_died_event")
 		if animation_player:
 			animation_player.play("death")
 		return

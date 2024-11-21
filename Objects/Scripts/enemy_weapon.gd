@@ -2,7 +2,6 @@ extends Node2D
 
 @onready var weapon_owner : CharacterBody2D = get_owner()
 @export var firing_position : Marker2D
-@export var attack_sfx : AudioStreamPlayer2D
 
 @export var max_attack_cooldown := 2.0
 @export var rand_attack_delay := 1.0
@@ -19,7 +18,7 @@ extends Node2D
 var bullet_scene: PackedScene = preload("res://Objects/Scenes/bullet.tscn")
 
 var attack_cooldown_remaining := 3.0
-var attacking = true
+var attacking = false
 
 func _physics_process(delta: float) -> void:
 	if not player or not player.visible:
@@ -64,9 +63,7 @@ func _handle_ranged_attack() -> void:
 		
 	projectiles.add_child(bullet)
 	# ============
-	if attack_sfx and not attack_sfx.playing:
-		attack_sfx.pitch_scale = randf_range(0.7, 1.3)
-		attack_sfx.play()
+	GlobalSoundManager.play_gunshot(4.0, 0.7, 1.3)
 	
 func _handle_melee_attack():
 	pass
