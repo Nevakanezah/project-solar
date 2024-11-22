@@ -14,6 +14,7 @@ config/name="Vampire Cowboy"
 config/tags=PackedStringArray("actively_working_on")
 run/main_scene="res://Scenes/main_menu.tscn"
 config/features=PackedStringArray("4.3", "Mobile")
+boot_splash/image="res://Assets/Art/Title Card.png"
 config/icon="res://icon.svg"
 
 [autoload]
