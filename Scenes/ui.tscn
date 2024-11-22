@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://baed36aj0tlpi"]
+[gd_scene load_steps=10 format=3 uid="uid://baed36aj0tlpi"]
 
 [ext_resource type="Script" path="res://Scenes/Scripts/ui.gd" id="1_sinb4"]
 
@@ -30,6 +30,9 @@ font_size = 32
 
 [sub_resource type="LabelSettings" id="LabelSettings_pc4xc"]
 font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_wvqwa"]
+font_size = 32
 
 [node name="UI" type="CanvasLayer" groups=["GlobalPlayerEvents"]]
 script = ExtResource("1_sinb4")
@@ -168,4 +171,164 @@ label_settings = SubResource("LabelSettings_pc4xc")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="DayComplete" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchor_left = 0.4
+anchor_top = 0.4
+anchor_right = 0.6
+anchor_bottom = 0.6
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect2" type="ColorRect" parent="DayComplete"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -492.0
+offset_top = -268.0
+offset_right = 494.0
+offset_bottom = 270.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.243137)
+
+[node name="ColorRect" type="ColorRect" parent="DayComplete"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.544974, 0.544974, 0.544974, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DayComplete"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="DayComplete/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+text = "Day Complete!"
+label_settings = SubResource("LabelSettings_llvqn")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NextDayButton" type="Button" parent="DayComplete/VBoxContainer"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="Label" type="Label" parent="DayComplete/VBoxContainer/NextDayButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Next Day"
+label_settings = SubResource("LabelSettings_pc4xc")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Victory" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchor_left = 0.4
+anchor_top = 0.4
+anchor_right = 0.6
+anchor_bottom = 0.6
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect2" type="ColorRect" parent="Victory"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -492.0
+offset_top = -268.0
+offset_right = 494.0
+offset_bottom = 270.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.243137)
+
+[node name="ColorRect" type="ColorRect" parent="Victory"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.544974, 0.544974, 0.544974, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Victory"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Victory/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+text = "You Won!"
+label_settings = SubResource("LabelSettings_llvqn")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VictoryButton" type="Button" parent="Victory/VBoxContainer"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="Label" type="Label" parent="Victory/VBoxContainer/VictoryButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Play Again"
+label_settings = SubResource("LabelSettings_pc4xc")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DayLabel" type="Label" parent="."]
+visible = false
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.02
+anchor_right = 0.5
+anchor_bottom = 0.05
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "Day: 1"
+label_settings = SubResource("LabelSettings_wvqwa")
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [connection signal="pressed" from="RestartScreen/VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="DayComplete/VBoxContainer/NextDayButton" to="." method="_on_next_day_button_pressed"]
+[connection signal="pressed" from="Victory/VBoxContainer/VictoryButton" to="." method="_on_victory_button_pressed"]
