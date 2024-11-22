@@ -204,6 +204,7 @@ shape = SubResource("RectangleShape2D_42cxy")
 
 [node name="DeathParticles" type="CPUParticles2D" parent="."]
 position = Vector2(0, 17.865)
+emitting = false
 amount = 12
 lifetime = 0.7
 lifetime_randomness = 0.2
