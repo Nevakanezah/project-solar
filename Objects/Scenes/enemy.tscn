@@ -1,16 +1,189 @@
-[gd_scene load_steps=8 format=3 uid="uid://cwulc8kgwxlfe"]
+[gd_scene load_steps=19 format=3 uid="uid://cwulc8kgwxlfe"]
 
-[ext_resource type="Texture2D" uid="uid://c211of1yjljgw" path="res://icon.svg" id="1_gq0rh"]
 [ext_resource type="Script" path="res://Objects/Scripts/enemy.gd" id="1_xwkit"]
+[ext_resource type="Texture2D" uid="uid://3g4wq77jq8lv" path="res://Assets/Art/Sprite/smoke copy.png" id="2_eor35"]
+[ext_resource type="Texture2D" uid="uid://cnchwhwvkfppp" path="res://Assets/Art/Spritesheet/Enemy/GruntSprites.png" id="2_hag84"]
+[ext_resource type="Texture2D" uid="uid://ce3mqam2rgpc5" path="res://Assets/Art/Hats/HatSprites.png" id="3_dhlmo"]
 [ext_resource type="Script" path="res://Objects/Scripts/enemy_weapon.gd" id="3_me6io"]
 [ext_resource type="PackedScene" uid="uid://bshyc7o2b8stj" path="res://Util/health_component.tscn" id="4_5gu80"]
 [ext_resource type="PackedScene" uid="uid://cenya1qutm3l7" path="res://Util/HurtboxComponent.tscn" id="5_fhnjc"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_io6ly"]
+radius = 31.6938
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_42cxy"]
-size = Vector2(63, 63)
+size = Vector2(77, 87)
+
+[sub_resource type="Curve" id="Curve_fm8wc"]
+max_value = 100.0
+_data = [Vector2(0, 1), 0.0, -1.89647, 0, 0, Vector2(0.803371, 17.5824), 97.8022, 97.8022, 0, 0, Vector2(1, 100), 1021.49, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_yxg02"]
+offsets = PackedFloat32Array(0, 0.546667, 1)
+colors = PackedColorArray(0.13, 0.13, 0.13, 1, 0.13, 0.13, 0.13, 0.670588, 0.4, 0.4, 0.4, 0.0352941)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fivnt"]
-size = Vector2(64, 64)
+size = Vector2(52, 100)
+
+[sub_resource type="Animation" id="Animation_t3kp2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("EnemySprite:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("EnemyHatSprite:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_fwe86"]
+resource_name = "die"
+length = 2.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [3, 3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("EnemySprite:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 9.51365),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("EnemySprite:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(1, 2.63902),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0, 0, 0, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("DeathParticles:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("EnemyHatSprite:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_ol48c"]
+resource_name = "on_hit"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+
+[sub_resource type="Animation" id="Animation_nxtpk"]
+resource_name = "shoot"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_5schu"]
+resource_name = "walk"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2xg5a"]
+_data = {
+"RESET": SubResource("Animation_t3kp2"),
+"die": SubResource("Animation_fwe86"),
+"on_hit": SubResource("Animation_ol48c"),
+"shoot": SubResource("Animation_nxtpk"),
+"walk": SubResource("Animation_5schu")
+}
 
 [node name="Enemy" type="CharacterBody2D" groups=["Enemy"]]
 collision_layer = 4
@@ -18,18 +191,54 @@ collision_mask = 12
 script = ExtResource("1_xwkit")
 
 [node name="FloorCollision" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(-0.5, -0.5)
-shape = SubResource("RectangleShape2D_42cxy")
+shape = SubResource("CircleShape2D_io6ly")
 
 [node name="MeleeDamageArea" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeDamageArea"]
 position = Vector2(-0.5, -0.5)
 shape = SubResource("RectangleShape2D_42cxy")
 
+[node name="DeathParticles" type="CPUParticles2D" parent="."]
+position = Vector2(0, 17.865)
+amount = 12
+lifetime = 0.7
+lifetime_randomness = 0.2
+texture = ExtResource("2_eor35")
+emission_shape = 1
+emission_sphere_radius = 15.0
+direction = Vector2(0, -1)
+spread = 70.0
+gravity = Vector2(0, -500)
+initial_velocity_min = 80.0
+initial_velocity_max = 120.0
+angular_velocity_min = -223.1
+angular_velocity_max = 223.1
+damping_min = 20.0
+damping_max = 100.0
+damping_curve = SubResource("Curve_fm8wc")
+angle_min = -162.3
+angle_max = 446.2
+scale_amount_min = 0.7
+scale_amount_max = 1.5
+color = Color(0.33, 0.33, 0.33, 1)
+color_ramp = SubResource("Gradient_yxg02")
+
 [node name="EnemySprite" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_gq0rh")
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("2_hag84")
+hframes = 4
+
+[node name="EnemyHatSprite" type="Sprite2D" parent="."]
+texture_filter = 2
+position = Vector2(-3, -51)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("3_dhlmo")
+hframes = 4
+frame = 1
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_max_distance = 200.0
@@ -53,14 +262,22 @@ MAX_HEALTH = 2.0
 MAX_GRACE_TIME = 0.0
 
 [node name="HurtboxComponent" parent="." instance=ExtResource("5_fhnjc")]
+visible = false
 collision_layer = 4
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_fivnt")
 debug_color = Color(0.913053, 0.26956, 0.301875, 0.42)
 
 [node name="FiringPosition" type="Marker2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_2xg5a")
+}
+autoplay = "walk"
 
 [connection signal="body_entered" from="MeleeDamageArea" to="." method="_on_damage_area_body_entered"]
 [connection signal="body_exited" from="MeleeDamageArea" to="." method="_on_damage_area_body_exited"]

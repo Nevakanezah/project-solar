@@ -9,11 +9,6 @@ extends Node
 func _ready():
 	SceneTransition.music_transition.connect(_on_music_transition)
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
 func _on_music_transition():
 	var tween = create_tween()
 	tween.set_trans(Tween.TRANS_LINEAR)

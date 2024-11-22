@@ -7,7 +7,7 @@ signal music_transition
 func transition_to(next_scene: PackedScene):
 	# Plays the fade animation and wait until it finishes
 	$AnimationPlayer.play("Fade")
-	emit_signal("music_transition")
+	music_transition.emit()
 	await $AnimationPlayer.animation_finished
 	# Change the scene
 	get_tree().change_scene_to_packed(next_scene)

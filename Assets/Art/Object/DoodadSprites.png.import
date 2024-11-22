@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c0fkloriteo4h"
-path="res://.godot/imported/player_walk 1 copy.png-e980a2ed379d82be49469e8c42e6e302.ctex"
+uid="uid://cprexh2gjylr1"
+path="res://.godot/imported/DoodadSprites.png-c346f3e0abf415ccb1896aa6622783f5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Art/Spritesheet/Player/player_walk 1 copy.png"
-dest_files=["res://.godot/imported/player_walk 1 copy.png-e980a2ed379d82be49469e8c42e6e302.ctex"]
+source_file="res://Assets/Art/Object/DoodadSprites.png"
+dest_files=["res://.godot/imported/DoodadSprites.png-c346f3e0abf415ccb1896aa6622783f5.ctex"]
 
 [params]
 

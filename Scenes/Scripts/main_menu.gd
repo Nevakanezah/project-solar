@@ -17,12 +17,11 @@ func _on_start_button_pressed():
 	GlobalSoundManager.play_hurt()
 	_disable_buttons()
 
-
 func _on_quit_button_pressed():
 	get_tree().quit()
 	
 func _disable_buttons() -> void:
-	for child in get_children():
+	for child in get_children(true):
 		if is_instance_of(child, TextureButton):
 			child.disabled = true
 

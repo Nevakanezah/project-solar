@@ -51,12 +51,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_rki4v")
 
-[node name="Menu" type="TextureRect" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="StartButton" type="TextureButton" parent="Menu"]
+[node name="StartButton" type="TextureButton" parent="."]
 layout_mode = 0
 offset_left = 1006.0
 offset_top = 530.0
@@ -65,7 +60,7 @@ offset_bottom = 594.0
 texture_normal = SubResource("GradientTexture2D_jvr6d")
 stretch_mode = 0
 
-[node name="Label" type="Label" parent="Menu/StartButton"]
+[node name="Label" type="Label" parent="StartButton"]
 layout_mode = 0
 offset_left = 2.0
 offset_right = 245.0
@@ -75,7 +70,7 @@ label_settings = SubResource("LabelSettings_8yudv")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="QuitButton" type="TextureButton" parent="Menu"]
+[node name="QuitButton" type="TextureButton" parent="."]
 layout_mode = 0
 offset_left = 1007.0
 offset_top = 616.0
@@ -84,7 +79,7 @@ offset_bottom = 680.0
 texture_normal = SubResource("GradientTexture2D_rqfc3")
 stretch_mode = 0
 
-[node name="Label" type="Label" parent="Menu/QuitButton"]
+[node name="Label" type="Label" parent="QuitButton"]
 layout_mode = 0
 offset_left = 2.0
 offset_right = 245.0
@@ -110,5 +105,5 @@ GAEM"
 label_settings = SubResource("LabelSettings_x21tk")
 horizontal_alignment = 1
 
-[connection signal="pressed" from="Menu/StartButton" to="." method="_on_start_button_pressed"]
-[connection signal="pressed" from="Menu/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="QuitButton" to="." method="_on_quit_button_pressed"]
