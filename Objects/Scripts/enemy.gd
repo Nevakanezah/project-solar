@@ -13,6 +13,7 @@ extends CharacterBody2D
 @onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
 
 @onready var player = get_node("/root/Level/Player")
+@onready var level = get_node("/root/Level")
 @onready var health_component: HealthComponent = $HealthComponent
 @onready var animation_player = $AnimationPlayer
 
@@ -85,6 +86,13 @@ func _on_health_changed(health : float):
 		$EnemyWeapon.enabled = false
 		_play_animation("die")
 		await animation_player.animation_finished
+		
+		# If it's the last remaining enemy and the current level isn't spawning more enemies.
+		if get_tree().get_nodes_in_group("Enemy").size() == 1 and level.current_level.spawn_enemies == false:
+			if level.level_amount == level.current_level.day:
+				GlobalUI.victory.visible = true
+			else:
+				GlobalUI.day_complete.visible = true
 		queue_free()
 	else:
 		_play_animation("on_hit")
