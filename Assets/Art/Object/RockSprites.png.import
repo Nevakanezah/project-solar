@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bx115pjja8c76"
-path="res://.godot/imported/player_walk 2 copy.png-5d40075e3c6d1eeb496cf4307480354c.ctex"
+uid="uid://cs2ihp7i1vha"
+path="res://.godot/imported/RockSprites.png-8d953a71402aa2d6aaa027ff8ed60589.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Art/Spritesheet/Player/player_walk 2 copy.png"
-dest_files=["res://.godot/imported/player_walk 2 copy.png-5d40075e3c6d1eeb496cf4307480354c.ctex"]
+source_file="res://Assets/Art/Object/RockSprites.png"
+dest_files=["res://.godot/imported/RockSprites.png-8d953a71402aa2d6aaa027ff8ed60589.ctex"]
 
 [params]
 

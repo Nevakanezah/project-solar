@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c5gxf5qibjb2g"
-path="res://.godot/imported/enemy_elite_die copy0.png-4ce032ab827c68da1517dd10d500c03e.ctex"
+uid="uid://dwl7fmimyfg6j"
+path="res://.godot/imported/playerSprites.png-5de8b871f3176eee95b7480ad79b40dd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Art/Spritesheet/Enemy/enemy_elite_die copy0.png"
-dest_files=["res://.godot/imported/enemy_elite_die copy0.png-4ce032ab827c68da1517dd10d500c03e.ctex"]
+source_file="res://Assets/Art/Spritesheet/Player/playerSprites.png"
+dest_files=["res://.godot/imported/playerSprites.png-5de8b871f3176eee95b7480ad79b40dd.ctex"]
 
 [params]
 

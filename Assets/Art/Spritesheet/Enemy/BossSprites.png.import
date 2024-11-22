@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://s576ahlo4sjv"
-path="res://.godot/imported/player_idle copy.png-fddda1f410737c3b781c1630854347cd.ctex"
+uid="uid://nelsjcc0wfit"
+path="res://.godot/imported/BossSprites.png-762ee9984625f01e0b336484ab2f836b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Art/Spritesheet/Player/player_idle copy.png"
-dest_files=["res://.godot/imported/player_idle copy.png-fddda1f410737c3b781c1630854347cd.ctex"]
+source_file="res://Assets/Art/Spritesheet/Enemy/BossSprites.png"
+dest_files=["res://.godot/imported/BossSprites.png-762ee9984625f01e0b336484ab2f836b.ctex"]
 
 [params]
 

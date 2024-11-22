@@ -14,6 +14,7 @@ extends CharacterBody2D
 
 @onready var player = get_node("/root/Level/Player")
 @onready var health_component: HealthComponent = $HealthComponent
+@onready var animation_player = $AnimationPlayer
 
 var invulnerable: bool = false
 var alive: bool = true
@@ -24,8 +25,10 @@ var attack_targets: Array
 
 func _ready() -> void:
 	health_component.health_changed.connect(_on_health_changed)
+	$EnemyWeapon.enemy_shoot_event.connect(_on_enemy_shoot)
 	
 	navigation_agent.target_position = player.global_position
+	$DeathParticles.emitting = false
 	
 	melee_attack_timer.wait_time = attack_speed
 	melee_attack_timer.start()
@@ -43,8 +46,9 @@ func _physics_process(delta):
 		var direction: Vector2 = (next_path_pos - global_position).normalized()
 		navigation_agent.set_velocity(direction * speed)
 		
-		var look_angle = direction.angle()
-		rotation = look_angle + PI / 2
+		$EnemySprite.flip_h = sign(direction.x) < 0 # Face the direction we're headed
+		$EnemyHatSprite.flip_h = sign(direction.x) < 0 # And our little hat, too.
+		_play_animation("walk")
 
 func _on_navigation_agent_2d_velocity_computed(safe_velocity: Vector2) -> void:
 	velocity = safe_velocity
@@ -76,4 +80,19 @@ func _on_attack_timer_timeout() -> void:
 
 func _on_health_changed(health : float):
 	if health <= 0:
+		active = false
+		navigation_agent.set_velocity(Vector2.ZERO)
+		$EnemyWeapon.enabled = false
+		_play_animation("die")
+		await animation_player.animation_finished
 		queue_free()
+	else:
+		_play_animation("on_hit")
+
+func _on_enemy_shoot() -> void:
+	_play_animation("shoot")
+
+func _play_animation(anim : String):
+	if anim in ["idle", "walk"]:
+		await animation_player.animation_finished
+	animation_player.play(anim)

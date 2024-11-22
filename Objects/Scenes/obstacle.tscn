@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://b82n3jasfmuug"]
 
-[ext_resource type="Script" path="res://Scenes/Scripts/obstacle.gd" id="1_sbwpf"]
+[ext_resource type="Script" path="res://Objects/Scripts/obstacle.gd" id="1_sbwpf"]
 [ext_resource type="Texture2D" uid="uid://cv7xguf2bxjxd" path="res://Assets/Art/Sprite/Rock6_1.png" id="2_peik6"]
 [ext_resource type="PackedScene" uid="uid://cenya1qutm3l7" path="res://Util/HurtboxComponent.tscn" id="3_604x4"]
 [ext_resource type="PackedScene" uid="uid://bshyc7o2b8stj" path="res://Util/health_component.tscn" id="4_hwphr"]

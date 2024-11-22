@@ -1,18 +1,18 @@
 [gd_scene load_steps=12 format=4 uid="uid://c1uj63twtyj35"]
 
 [ext_resource type="PackedScene" uid="uid://dt7rhhabjhbvt" path="res://Player/player.tscn" id="1_24gyy"]
-[ext_resource type="PackedScene" uid="uid://b82n3jasfmuug" path="res://Objects/Scenes/obstacle.tscn" id="1_dqfh5"]
 [ext_resource type="Script" path="res://Scenes/Scripts/level.gd" id="1_l4aa1"]
 [ext_resource type="PackedScene" uid="uid://cwulc8kgwxlfe" path="res://Objects/Scenes/enemy.tscn" id="1_s1ljt"]
 [ext_resource type="Texture2D" uid="uid://d14gtg4m0nl36" path="res://Assets/Art/bg.png" id="2_3qchw"]
 [ext_resource type="PackedScene" uid="uid://eatb8kpnr1u" path="res://Scenes/Obstacles/invisible_border.tscn" id="2_erifk"]
 [ext_resource type="PackedScene" uid="uid://baed36aj0tlpi" path="res://Scenes/ui.tscn" id="2_l4o6g"]
+[ext_resource type="PackedScene" uid="uid://d0yq0diuxscm4" path="res://Objects/Scenes/obstacle_rock.tscn" id="4_6yypf"]
 [ext_resource type="AudioStream" uid="uid://bwspkydm5yce0" path="res://Assets/Audio/Music/good_vlad_ugly_loop_130bmp_4_4_battle.wav" id="6_jes3y"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_ig5e0"]
-vertices = PackedVector2Array(1274.96, 708, 488.344, 708, 530.703, 678.43, 1272.04, 4, 884.859, 281.297, 859.82, 217.539, 359.07, 634.547, 396.352, 708, 8.03906, 708, 10.9609, 4, 853.453, 349.75, 795.094, 373.781, 535.18, 602.273, 731.594, 348.828, 504.43, 555.578, 383.977, 570.023, 701.141, 282.297, 444.961, 536.141, 726.18, 218.547, 793.992, 188.039)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2), PackedInt32Array(3, 0, 4, 5), PackedInt32Array(6, 7, 8, 9), PackedInt32Array(10, 4, 0), PackedInt32Array(11, 10, 0, 2, 12), PackedInt32Array(13, 11, 12, 14), PackedInt32Array(15, 6, 9), PackedInt32Array(16, 17, 15, 9, 18), PackedInt32Array(16, 13, 14, 17), PackedInt32Array(3, 5, 19), PackedInt32Array(9, 3, 19), PackedInt32Array(18, 9, 19)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(1, -6, -2, 718, 1285, 718, 1282, -6), PackedVector2Array(392, 577, 446, 547, 498, 564, 525, 605, 521, 673, 468, 710, 403, 699, 370, 634), PackedVector2Array(794, 199, 852, 225, 874, 281, 846, 342, 795, 363, 739, 341, 712, 282, 734, 226)])
+vertices = PackedVector2Array(796.133, 188.039, 726.211, 218.492, 405.844, 170.938, 385.68, 123.508, 1274.96, 708, 488.344, 708, 530.703, 678.43, 1272.04, 4, 884.859, 281.297, 859.844, 217.617, 359.07, 634.547, 396.352, 708, 8.03906, 708, 10.9609, 4, 853.453, 349.75, 795.094, 373.781, 535.18, 602.273, 731.594, 348.828, 504.43, 555.578, 383.609, 224.781, 701.141, 282.297, 444.961, 536.141, 383.977, 570.023, 282.5, 223.672, 331.797, 244.797, 334.367, 100.18, 259.188, 172.383, 278.219, 121.242)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 5, 6), PackedInt32Array(7, 4, 8, 9), PackedInt32Array(10, 11, 12, 13), PackedInt32Array(14, 8, 4), PackedInt32Array(15, 14, 4, 6, 16), PackedInt32Array(17, 15, 16, 18), PackedInt32Array(19, 2, 1, 20, 18, 21), PackedInt32Array(22, 10, 13), PackedInt32Array(21, 22, 13, 23), PackedInt32Array(20, 17, 18), PackedInt32Array(24, 19, 21), PackedInt32Array(7, 9, 0), PackedInt32Array(13, 7, 0, 25), PackedInt32Array(23, 24, 21), PackedInt32Array(26, 23, 13), PackedInt32Array(27, 26, 13), PackedInt32Array(25, 27, 13), PackedInt32Array(25, 0, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(1, -6, -2, 718, 1285, 718, 1282, -6), PackedVector2Array(392, 577, 446, 547, 498, 564, 525, 605, 521, 673, 468, 710, 403, 699, 370, 634), PackedVector2Array(796, 199, 852, 225, 874, 281, 846, 342, 795, 363, 739, 341, 712, 282, 734, 226), PackedVector2Array(334, 111, 378, 131, 395, 171, 376, 217, 332, 234, 290, 216, 270, 172, 286, 129)])
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lyywh"]
 texture = ExtResource("2_3qchw")
@@ -33,13 +33,7 @@ navigation_polygon = SubResource("NavigationPolygon_ig5e0")
 tile_map_data = PackedByteArray("AAD/////AAAAAAAAAAD//wAAAAAAAAAAAAD//wEAAAAAAAAAAAD//wIAAAAAAAAAAAD//wMAAAAAAAAAAAAAAP//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAMAAAAAAAAAAAABAP//AAAAAAAAAAABAAAAAAAAAAAAAAABAAEAAAAAAAAAAAABAAIAAAAAAAAAAAABAAMAAAAAAAAAAAACAP//AAAAAAAAAAACAAAAAAAAAAAAAAACAAEAAAAAAAAAAAACAAIAAAAAAAAAAAACAAMAAAAAAAAAAAADAP//AAAAAAAAAAADAAAAAAAAAAAAAAADAAEAAAAAAAAAAAADAAIAAAAAAAAAAAADAAMAAAAAAAAAAAAEAP//AAAAAAAAAAAEAAAAAAAAAAAAAAAEAAEAAAAAAAAAAAAEAAIAAAAAAAAAAAAEAAMAAAAAAAAAAAAFAP//AAAAAAAAAAAFAAAAAAAAAAAAAAAFAAEAAAAAAAAAAAAFAAIAAAAAAAAAAAAFAAMAAAAAAAAAAAA=")
 tile_set = SubResource("TileSet_r3wla")
 
-[node name="Obstacles" type="Node" parent="."]
-
-[node name="Obstacle" parent="Obstacles" instance=ExtResource("1_dqfh5")]
-position = Vector2(451, 631)
-
-[node name="Obstacle2" parent="Obstacles" instance=ExtResource("1_dqfh5")]
-position = Vector2(794, 281)
+[node name="Obstacles" type="Node" parent="." groups=["Obstacle"]]
 
 [node name="InvisibleBorders" type="Node" parent="Obstacles"]
 
@@ -58,6 +52,15 @@ scale = Vector2(24, 1)
 [node name="InvisibleBorder4" parent="Obstacles/InvisibleBorders" instance=ExtResource("2_erifk")]
 position = Vector2(679, 749)
 scale = Vector2(24, 1)
+
+[node name="Obstacle_Rock" parent="Obstacles" instance=ExtResource("4_6yypf")]
+position = Vector2(331, 173)
+
+[node name="Obstacle_Rock2" parent="Obstacles" instance=ExtResource("4_6yypf")]
+position = Vector2(446, 629)
+
+[node name="Obstacle_Rock3" parent="Obstacles" instance=ExtResource("4_6yypf")]
+position = Vector2(797, 279)
 
 [node name="Projectiles" type="Node" parent="."]
 

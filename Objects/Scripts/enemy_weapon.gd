@@ -1,11 +1,14 @@
 extends Node2D
 
+signal enemy_shoot_event
+
 @onready var weapon_owner : CharacterBody2D = get_owner()
+@export var enabled := true
 @export var firing_position : Marker2D
 
 @export var max_attack_cooldown := 2.0
 @export var rand_attack_delay := 1.0
-@export var attack_damage := 1.0
+@export var attack_damage := 10.0
 @export var attack_range := 1000.0
 
 @export var bullet_sprite: Texture2D
@@ -21,6 +24,8 @@ var attack_cooldown_remaining := 3.0
 var attacking = false
 
 func _physics_process(delta: float) -> void:
+	if not enabled:
+		return
 	if not player or not player.visible:
 		return
 	if attack_range > 0.0 and global_position.distance_to(player.global_position) > attack_range:
@@ -64,6 +69,7 @@ func _handle_ranged_attack() -> void:
 	projectiles.add_child(bullet)
 	# ============
 	GlobalSoundManager.play_gunshot(4.0, 0.7, 1.3)
+	enemy_shoot_event.emit()
 	
 func _handle_melee_attack():
 	pass

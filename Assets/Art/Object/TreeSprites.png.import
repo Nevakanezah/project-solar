@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c1wnhalrqe7k"
-path="res://.godot/imported/enemy_boss_onhit copy.png-5a8ab92bd65db06ddc19b34e3854006a.ctex"
+uid="uid://78farnsumihd"
+path="res://.godot/imported/TreeSprites.png-2584734178b585f06faf9de682e40cf9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Art/Spritesheet/Enemy/enemy_boss_onhit copy.png"
-dest_files=["res://.godot/imported/enemy_boss_onhit copy.png-5a8ab92bd65db06ddc19b34e3854006a.ctex"]
+source_file="res://Assets/Art/Object/TreeSprites.png"
+dest_files=["res://.godot/imported/TreeSprites.png-2584734178b585f06faf9de682e40cf9.ctex"]
 
 [params]
 
