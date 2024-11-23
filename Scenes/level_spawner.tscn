@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=4 uid="uid://ddud388behuax"]
+[gd_scene load_steps=10 format=4 uid="uid://ddud388behuax"]
 
 [ext_resource type="Script" path="res://Scenes/Scripts/level_spawner.gd" id="1_4i2wj"]
 [ext_resource type="PackedScene" uid="uid://eatb8kpnr1u" path="res://Scenes/Obstacles/invisible_border.tscn" id="2_ucq5b"]
@@ -18,6 +18,43 @@ vertices = PackedVector2Array(1345.85, 790.023, -737.852, 794.969, -719.141, -52
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-729, -530, 1337, -532, 1356, 800, -748, 805)])
 
+[sub_resource type="Animation" id="Animation_kxyva"]
+resource_name = "day_night_cycle"
+length = 60.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TileMapLayer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.83333, 30, 57, 60),
+"transitions": PackedFloat32Array(1, 0.5, 3.24901, 1, 1),
+"update": 0,
+"values": [Color(0.1392, 0.15056, 0.48, 1), Color(0.1392, 0.15056, 0.48, 1), Color(1, 1, 1, 1), Color(0.1392, 0.15056, 0.48, 1), Color(0.1392, 0.15056, 0.48, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_l621h"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TileMapLayer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lrrbl"]
+_data = {
+"RESET": SubResource("Animation_l621h"),
+"day_night_cycle": SubResource("Animation_kxyva")
+}
+
 [node name="LevelSpawner" type="Node2D"]
 script = ExtResource("1_4i2wj")
 
@@ -32,18 +69,22 @@ tile_set = SubResource("TileSet_s8qqn")
 [node name="InvisibleBorder" parent="Obstacles/InvisibleBorders" instance=ExtResource("2_ucq5b")]
 position = Vector2(-31, 361)
 scale = Vector2(1, 12)
+collision_mask = 7
 
 [node name="InvisibleBorder2" parent="Obstacles/InvisibleBorders" instance=ExtResource("2_ucq5b")]
 position = Vector2(1312, 350)
 scale = Vector2(1, 12)
+collision_mask = 7
 
 [node name="InvisibleBorder3" parent="Obstacles/InvisibleBorders" instance=ExtResource("2_ucq5b")]
 position = Vector2(635, -37)
 scale = Vector2(24, 1)
+collision_mask = 7
 
 [node name="InvisibleBorder4" parent="Obstacles/InvisibleBorders" instance=ExtResource("2_ucq5b")]
 position = Vector2(679, 749)
 scale = Vector2(24, 1)
+collision_mask = 7
 
 [node name="EnemySpawns" type="Node2D" parent="."]
 
@@ -73,6 +114,11 @@ one_shot = true
 [node name="EnemyTimer" type="Timer" parent="."]
 wait_time = 5.0
 autostart = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_lrrbl")
+}
 
 [connection signal="timeout" from="LengthTimer" to="." method="_on_length_timer_timeout"]
 [connection signal="timeout" from="EnemyTimer" to="." method="_on_enemy_timer_timeout"]

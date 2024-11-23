@@ -46,3 +46,6 @@ func _on_attack_timer_timeout() -> void:
 func hit(damage):
 	if !invincible:
 		health -= damage
+
+func restart_shadows():
+	$ShadowComponent.start_shadow()

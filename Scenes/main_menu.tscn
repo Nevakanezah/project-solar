@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://b0ngw6rle4cbk"]
+[gd_scene load_steps=13 format=3 uid="uid://b0ngw6rle4cbk"]
 
 [ext_resource type="Script" path="res://Scenes/Scripts/main_menu.gd" id="1_jckcn"]
 [ext_resource type="AudioStream" uid="uid://b0jprx0jaqbfy" path="res://Assets/Audio/Music/good_vlad_ugly_loop_130bmp_4_4_upgrade_menu.wav" id="2_48s6k"]
@@ -12,7 +12,7 @@ gradient = SubResource("Gradient_rqjq0")
 fill_to = Vector2(0, 1)
 
 [sub_resource type="SystemFont" id="SystemFont_lpqwg"]
-font_names = PackedStringArray("Comic Sans MS")
+font_names = PackedStringArray("akaPosse")
 
 [sub_resource type="LabelSettings" id="LabelSettings_8yudv"]
 font = SubResource("SystemFont_lpqwg")
@@ -27,11 +27,22 @@ font_names = PackedStringArray("Carnivalee Freakshow")
 
 [sub_resource type="LabelSettings" id="LabelSettings_x21tk"]
 font = SubResource("SystemFont_a6k1w")
-font_size = 156
+font_size = 120
 font_color = Color(0.311727, 0.140921, 0, 1)
 shadow_size = 11
 shadow_color = Color(0, 0, 0, 0.168627)
 shadow_offset = Vector2(4.505, 4.075)
+
+[sub_resource type="SystemFont" id="SystemFont_r1p27"]
+font_names = PackedStringArray("Requiem")
+
+[sub_resource type="LabelSettings" id="LabelSettings_ije17"]
+font = SubResource("SystemFont_r1p27")
+font_size = 127
+font_color = Color(0.837235, 0.0404647, 0.0392915, 1)
+shadow_size = 11
+shadow_color = Color(0, 0, 0, 0.168627)
+shadow_offset = Vector2(4, 4)
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -96,14 +107,21 @@ bus = &"Music"
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
-offset_left = 677.0
-offset_top = -7.0
-offset_right = 1270.0
-offset_bottom = 446.0
-text = "VAMPYUR
-GAEM"
+offset_left = 656.0
+offset_top = 343.0
+offset_right = 842.0
+offset_bottom = 485.0
+text = "Tex"
 label_settings = SubResource("LabelSettings_x21tk")
-horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 815.0
+offset_top = 332.0
+offset_right = 1312.0
+offset_bottom = 487.0
+text = "ylvania"
+label_settings = SubResource("LabelSettings_ije17")
 
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="QuitButton" to="." method="_on_quit_button_pressed"]

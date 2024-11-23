@@ -8,8 +8,8 @@ signal health_changed(health: float)
 
 @export var alive := true
 @export var invulnerable := false
-@export var MAX_HEALTH := 10.0
-@onready var health := MAX_HEALTH
+@export var MAX_HEALTH := 100.0
+@onready var health := 0.0
 
 @export var receives_grace_time := false
 @export var MAX_GRACE_TIME := 0.5

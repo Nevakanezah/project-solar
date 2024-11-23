@@ -6,14 +6,14 @@
 [ext_resource type="PackedScene" uid="uid://bshyc7o2b8stj" path="res://Util/health_component.tscn" id="4_hwphr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_54sci"]
-size = Vector2(64, 64)
+size = Vector2(60, 60)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_my1b6"]
 size = Vector2(68, 68)
 
 [node name="Obstacle" type="StaticBody2D" groups=["Obstacle"]]
 collision_layer = 8
-collision_mask = 7
+collision_mask = 5
 script = ExtResource("1_sbwpf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -34,7 +34,7 @@ wait_time = 0.2
 
 [node name="HurtboxComponent" parent="." instance=ExtResource("3_604x4")]
 collision_layer = 8
-collision_mask = 5
+collision_mask = 7
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="HurtboxComponent"]
 shape = SubResource("RectangleShape2D_my1b6")

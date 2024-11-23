@@ -35,3 +35,6 @@ func _on_next_day_button_pressed() -> void:
 func _on_victory_button_pressed() -> void:
 	get_tree().reload_current_scene()
 	victory.visible = false
+
+func global_player_died_event():
+	$RestartScreen.visible = true

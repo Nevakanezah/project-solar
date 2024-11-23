@@ -1,18 +1,24 @@
-[gd_scene load_steps=16 format=3 uid="uid://dt7rhhabjhbvt"]
+[gd_scene load_steps=19 format=3 uid="uid://dt7rhhabjhbvt"]
 
 [ext_resource type="Script" path="res://Player/Scripts/player.gd" id="1_8ndhk"]
+[ext_resource type="Texture2D" uid="uid://3g4wq77jq8lv" path="res://Assets/Art/Sprite/smoke copy.png" id="2_sr4op"]
 [ext_resource type="Texture2D" uid="uid://dwl7fmimyfg6j" path="res://Assets/Art/Spritesheet/Player/playerSprites.png" id="2_vesf2"]
 [ext_resource type="Texture2D" uid="uid://ce3mqam2rgpc5" path="res://Assets/Art/Hats/HatSprites.png" id="3_1yb55"]
 [ext_resource type="PackedScene" uid="uid://bshyc7o2b8stj" path="res://Util/health_component.tscn" id="3_r2k1o"]
 [ext_resource type="PackedScene" uid="uid://cenya1qutm3l7" path="res://Util/HurtboxComponent.tscn" id="4_sdw4b"]
 [ext_resource type="Script" path="res://Player/Scripts/player_weapon.gd" id="5_c1be6"]
+[ext_resource type="Script" path="res://Player/hat_component.gd" id="8_j35rg"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6b832"]
-radius = 18.0
-height = 51.0
+radius = 14.0
+height = 61.0
+
+[sub_resource type="Gradient" id="Gradient_ofuqu"]
+offsets = PackedFloat32Array(0, 0.56, 1)
+colors = PackedColorArray(0.2, 0.2, 0.2, 1, 0.55, 0.55, 0.55, 0.886275, 0.68, 0.68, 0.68, 0)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6grma"]
-size = Vector2(36, 38)
+size = Vector2(23, 52.5)
 
 [sub_resource type="Animation" id="Animation_3wjja"]
 length = 0.001
@@ -28,10 +34,34 @@ tracks/0/keys = {
 "update": 1,
 "values": [0]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HatComponent:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -51)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("HatComponent:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
 [sub_resource type="Animation" id="Animation_7ni4v"]
 resource_name = "die"
-loop_mode = 1
+length = 10.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -43,6 +73,30 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [5]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HatComponent:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.13333, 1.26667, 2),
+"transitions": PackedFloat32Array(0.466517, 1.7411, 1, 6.27667),
+"update": 0,
+"values": [Vector2(0, -51), Vector2(76, -95), Vector2(86, -95), Vector2(92, 44)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("HatComponent:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = false
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.2, 1.73333),
+"transitions": PackedFloat32Array(0.353553, 1, 1),
+"update": 0,
+"values": [0.0, 12.5664, 15.708]
 }
 
 [sub_resource type="Animation" id="Animation_5eg5b"]
@@ -119,12 +173,29 @@ _data = {
 }
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
-collision_mask = 24
+collision_mask = 56
 script = ExtResource("1_8ndhk")
 
 [node name="FloorCollision" type="CollisionShape2D" parent="."]
 position = Vector2(0, -0.5)
 shape = SubResource("CapsuleShape2D_6b832")
+
+[node name="SmokeEmitter" type="CPUParticles2D" parent="."]
+position = Vector2(0, -12.62)
+emitting = false
+lifetime = 0.7
+lifetime_randomness = 0.2
+texture = ExtResource("2_sr4op")
+emission_shape = 1
+emission_sphere_radius = 25.0
+direction = Vector2(0, -1)
+spread = 30.0
+gravity = Vector2(0, 200)
+initial_velocity_min = 200.0
+initial_velocity_max = 250.0
+angular_velocity_min = -90.0
+angular_velocity_max = 90.0
+color_ramp = SubResource("Gradient_ofuqu")
 
 [node name="PlayerSprite" type="Sprite2D" parent="."]
 texture_filter = 2
@@ -134,16 +205,8 @@ texture = ExtResource("2_vesf2")
 offset = Vector2(1.3, 0)
 hframes = 6
 
-[node name="PlayerHatSprite" type="Sprite2D" parent="."]
-texture_filter = 2
-position = Vector2(0, -47)
-scale = Vector2(0.75, 0.75)
-texture = ExtResource("3_1yb55")
-hframes = 4
-
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("hurtbox") groups=["GlobalPlayerEvents"] instance=ExtResource("3_r2k1o")]
 hurtbox = NodePath("../HurtboxComponent")
-MAX_HEALTH = 100.0
 receives_grace_time = true
 
 [node name="HurtboxComponent" parent="." instance=ExtResource("4_sdw4b")]
@@ -151,8 +214,19 @@ visible = false
 collision_mask = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+position = Vector2(0, -2.75)
 shape = SubResource("RectangleShape2D_6grma")
 debug_color = Color(0.914066, 0.275567, 0.249061, 0.42)
+
+[node name="HatComponent" type="Node2D" parent="."]
+position = Vector2(0, -51)
+script = ExtResource("8_j35rg")
+
+[node name="PlayerHatSprite" type="Sprite2D" parent="HatComponent"]
+texture_filter = 2
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("3_1yb55")
+hframes = 4
 
 [node name="PlayerWeapon" type="Node2D" parent="." node_paths=PackedStringArray("firing_position")]
 script = ExtResource("5_c1be6")

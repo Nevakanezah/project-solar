@@ -19,15 +19,15 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-SceneTransition="*res://Util/scene_transition.tscn"
 GlobalSoundManager="*res://Util/GlobalSoundManager.tscn"
 GlobalUI="*res://Scenes/ui.tscn"
+SceneTransition="*res://Util/scene_transition.tscn"
 
 [display]
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
-window/size/resizable=false
+window/stretch/mode="viewport"
 
 [file_customization]
 
@@ -84,6 +84,7 @@ primary={
 2d_physics/layer_3="Enemies"
 2d_physics/layer_4="Obstacles"
 2d_physics/layer_5="Invis Border"
+2d_physics/layer_6="Shadows"
 
 [rendering]
 

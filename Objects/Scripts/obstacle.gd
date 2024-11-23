@@ -18,6 +18,7 @@ var attack_targets: Array
 @onready var attack_timer: Timer = $AttackTimer
 
 func _ready() -> void:
+	$HealthComponent.health_changed.connect(_on_health_changed)
 	visible = visibility
 	attack_timer.wait_time = attack_speed
 	attack_timer.start()
@@ -40,6 +41,9 @@ func _on_attack_timer_timeout() -> void:
 		if "hit" in body:
 			body.hit(damage_amount)
 
-func hit(damage):
-	if !invincible:
-		health -= damage
+func _on_health_changed(health : float):
+	if invincible:
+		return
+		
+	if health <= 0.0:
+		queue_free()
