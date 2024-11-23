@@ -14,7 +14,7 @@ const MAX_PLAYER_HP := 100.0
 var current_player_hp : float
 var player_dead := false
 
-const SUN_DAMAGE_RATE := 5.0
+const SUN_DAMAGE_RATE := 8.0
 var is_in_sunlight := true
 var current_sun_damage := 0.0
 var sunlight_timer := 0.0

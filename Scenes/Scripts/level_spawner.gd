@@ -27,11 +27,7 @@ func _on_length_timer_timeout() -> void:
 	spawn_enemies = false
 	
 	if get_tree().get_nodes_in_group("Enemy").size() == 0:
-		if level.levels.get_children().size() >= day:
-			GlobalSoundManager.play_wingame_stinger()
-			GlobalUI.victory.visible = true
-		else:
-			GlobalUI.day_complete.visible = true
+		GlobalUI.day_complete.visible = true
 
 func _on_enemy_timer_timeout() -> void:
 	if spawn_enemies:

@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var level_amount := 1
+@export var level_amount := 5
 
 var level_spawner_scene := preload("res://Scenes/level_spawner.tscn")
 var backgroundmusicOn = true

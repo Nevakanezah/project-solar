@@ -87,6 +87,8 @@ func _on_health_changed(health : float):
 		active = false
 		navigation_agent.set_velocity(Vector2.ZERO)
 		$EnemyWeapon.enabled = false
+		$HurtboxComponent.set_collision_layer_value(3,false)
+		self.set_collision_layer_value(3,false)
 		_drop_hat_pickup()
 		GlobalSoundManager.play_enemy_die()
 		_play_animation("die")
@@ -95,6 +97,7 @@ func _on_health_changed(health : float):
 		# If it's the last remaining enemy and the current level isn't spawning more enemies.
 		if get_tree().get_nodes_in_group("Enemy").size() == 1 and level.current_level.spawn_enemies == false:
 			if level.level_amount == level.current_level.day:
+				GlobalSoundManager.play_wingame_stinger()
 				GlobalUI.victory.visible = true
 			else:
 				GlobalUI.day_complete.visible = true
