@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var level_amount := 5
+@export var level_amount := 1
 
 var level_spawner_scene := preload("res://Scenes/level_spawner.tscn")
 var backgroundmusicOn = true
@@ -44,9 +44,11 @@ func update_music_stats():
 		musicaudiostreamBG.stop()
 
 func start_next_day():
+	current_level.generate_obstacles()
 	# FIXME This code could potentially trigger before the camera reaches the next level's position.
-	await get_tree().create_timer(0.5).timeout
+	await get_tree().create_timer(0.6).timeout
 	player.global_position = camera.global_position
+	player.on_level_transition()
 	
 	current_level.spawn_enemies = true
 	current_level.length_timer.start()

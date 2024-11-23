@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://c1uj63twtyj35"]
+[gd_scene load_steps=7 format=3 uid="uid://c1uj63twtyj35"]
 
 [ext_resource type="PackedScene" uid="uid://dt7rhhabjhbvt" path="res://Player/player.tscn" id="1_24gyy"]
 [ext_resource type="Script" path="res://Scenes/Scripts/level.gd" id="1_l4aa1"]
 [ext_resource type="PackedScene" uid="uid://baed36aj0tlpi" path="res://Scenes/ui.tscn" id="2_l4o6g"]
+[ext_resource type="Script" path="res://Util/Scripts/camera_2d.gd" id="5_6f1e0"]
 [ext_resource type="AudioStream" uid="uid://bwspkydm5yce0" path="res://Assets/Audio/Music/good_vlad_ugly_loop_130bmp_4_4_battle.wav" id="6_jes3y"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_ig5e0"]
@@ -24,6 +25,8 @@ navigation_polygon = SubResource("NavigationPolygon_ig5e0")
 
 [node name="Enemies" type="Node" parent="."]
 
+[node name="Pickups" type="Node" parent="."]
+
 [node name="Player" parent="." instance=ExtResource("1_24gyy")]
 position = Vector2(597, 310)
 
@@ -36,4 +39,5 @@ bus = &"Music"
 
 [node name="UI" parent="." instance=ExtResource("2_l4o6g")]
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." groups=["GlobalPlayerEvents"]]
+script = ExtResource("5_6f1e0")

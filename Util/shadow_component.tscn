@@ -60,6 +60,18 @@ tracks/3/keys = {
 "update": 0,
 "values": [Vector2(1, 2)]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0.784314)]
+}
 
 [sub_resource type="Animation" id="Animation_1yds2"]
 resource_name = "move_shadow"
@@ -98,7 +110,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0, 4.96667, 5, 10),
 "transitions": PackedFloat32Array(1.23114, 1, 1, 3.4822),
 "update": 0,
-"values": [Vector2(1.334, 4), Vector2(1, 0), Vector2(-1, 0), Vector2(-1.333, -4)]
+"values": [Vector2(2, 6), Vector2(1, 0), Vector2(-1, 0), Vector2(-2, -6)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -110,7 +122,19 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0, 4.96667, 5, 10),
 "transitions": PackedFloat32Array(1.23114, 1, 1, 3.4822),
 "update": 0,
-"values": [Vector2(1.333, 4), Vector2(1, 0), Vector2(-1, 0), Vector2(-1.333, -4)]
+"values": [Vector2(1.333, 6), Vector2(1, 0), Vector2(-1, 0), Vector2(-1.333, -6)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1, 9, 10),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 0.784314), Color(0, 0, 0, 0.784314), Color(0, 0, 0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_an7vq"]
@@ -119,7 +143,8 @@ _data = {
 "move_shadow": SubResource("Animation_1yds2")
 }
 
-[node name="ShadowComponent" type="Node2D"]
+[node name="ShadowComponent" type="Area2D"]
+collision_layer = 32
 script = ExtResource("1_kpnk0")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -128,7 +153,7 @@ show_behind_parent = true
 material = SubResource("CanvasItemMaterial_u4xsb")
 scale = Vector2(1, 3)
 texture = ExtResource("2_8h3l3")
-offset = Vector2(10, 24)
+offset = Vector2(5, 24)
 flip_v = true
 
 [node name="ShadowCollider" type="CollisionShape2D" parent="."]
@@ -142,3 +167,6 @@ libraries = {
 }
 autoplay = "move_shadow"
 speed_scale = 0.167
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]

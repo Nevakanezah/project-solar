@@ -13,7 +13,7 @@ signal enemy_shoot_event
 
 @export var bullet_sprite: Texture2D
 @export var bullet_speed := 500.0
-@export var bullet_inaccuracy := 20.0
+@export var bullet_inaccuracy := 15.0
 
 @onready var projectiles: Node = get_node("/root/Level/Projectiles")
 @onready var player = get_node("/root/Level/Player")

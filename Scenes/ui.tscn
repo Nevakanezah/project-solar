@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://baed36aj0tlpi"]
+[gd_scene load_steps=11 format=3 uid="uid://baed36aj0tlpi"]
 
 [ext_resource type="Script" path="res://Scenes/Scripts/ui.gd" id="1_sinb4"]
 
 [sub_resource type="SystemFont" id="SystemFont_3a2yl"]
 font_names = PackedStringArray("akaPosse")
+subpixel_positioning = 0
 
 [sub_resource type="LabelSettings" id="LabelSettings_2w56w"]
 font = SubResource("SystemFont_3a2yl")
@@ -102,7 +103,7 @@ mouse_filter = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_38jxh")
 theme_override_styles/fill = SubResource("StyleBoxFlat_4ucgr")
 step = 1.0
-value = 50.0
+value = 1.0
 rounded = true
 show_percentage = false
 

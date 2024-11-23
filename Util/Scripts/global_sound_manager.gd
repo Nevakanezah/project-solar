@@ -34,13 +34,37 @@ func play_gunshot(volume : float = 0.0, pitch_bottom : float = 1.0, pitch_top : 
 func play_hurt():
 	$sfx_hurt.play()
 
+func play_enemy_hurt():
+	$sfx_enemy_hurt.play()
+
 func play_footsteps():
 	if not sfx_footstep.playing:
 		sfx_footstep.pitch_scale = randf_range(0.9, 1.2)
 		sfx_footstep.play()
 
+func play_sizzle():
+	$sfx_sizzle_start.play()
+	if not $sfx_sizzle_loop.playing:
+		$sfx_sizzle_loop.play()
+	
+func stop_sizzle():
+	$sfx_sizzle_loop.stop()
+
+func play_ricochet():
+	$sfx_ricochet.pitch_scale = randf_range(0.6, 2.0)
+	$sfx_ricochet.play()
+
 func stop_footsteps():
 	sfx_footstep.stop()
+
+func play_hat_pickup():
+	$sfx_hat_pickup.play()
+
+func play_enemy_die():
+	$sfx_enemy_die.play()
+
+func play_wingame_stinger():
+	$stinger_wingame.play()
 
 func global_player_died_event():
 	$sfx_player_die.play()

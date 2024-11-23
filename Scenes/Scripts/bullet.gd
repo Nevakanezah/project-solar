@@ -49,6 +49,7 @@ func _on_target_hit(victim : CollisionObject2D):
 			particle_colour = Color(0.459, 0.075, 0.086)
 		8: # Obstacle
 			particle_colour = Color(0.533, 0.267, 0.031)
+			GlobalSoundManager.play_ricochet()
 		_: # Default
 			particle_colour = Color(0, 0, 0, 0.004)
 	#if victim.is_in_group("Player"):

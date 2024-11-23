@@ -17,6 +17,7 @@ extends CharacterBody2D
 @onready var health_component: HealthComponent = $HealthComponent
 @onready var animation_player = $AnimationPlayer
 
+var hat_scene = preload("res://Objects/Scenes/hat_drop.tscn")
 var invulnerable: bool = false
 var alive: bool = true
 
@@ -30,6 +31,7 @@ func _ready() -> void:
 	
 	navigation_agent.target_position = player.global_position
 	$DeathParticles.emitting = false
+	health_component.health = 2.0
 	
 	melee_attack_timer.wait_time = attack_speed
 	melee_attack_timer.start()
@@ -80,10 +82,13 @@ func _on_attack_timer_timeout() -> void:
 			body.hit(melee_damage)
 
 func _on_health_changed(health : float):
+	GlobalSoundManager.play_enemy_hurt()
 	if health <= 0:
 		active = false
 		navigation_agent.set_velocity(Vector2.ZERO)
 		$EnemyWeapon.enabled = false
+		_drop_hat_pickup()
+		GlobalSoundManager.play_enemy_die()
 		_play_animation("die")
 		await animation_player.animation_finished
 		
@@ -104,3 +109,9 @@ func _play_animation(anim : String):
 	if anim in ["idle", "walk"]:
 		await animation_player.animation_finished
 	animation_player.play(anim)
+
+func _drop_hat_pickup():
+	var hat_drop = hat_scene.instantiate()
+	hat_drop.position = position
+	hat_drop.sprite_index = $EnemyHatSprite.frame
+	level.find_child("Pickups").add_child(hat_drop)

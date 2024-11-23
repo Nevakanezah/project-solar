@@ -1,9 +1,9 @@
 extends Node2D
 
-@export var level_length := 10
+@export var level_length := 60
 @export var day := 1
-@export var min_obstacles := 2
-@export var max_obstacles := 5
+@export var min_obstacles := 4
+@export var max_obstacles := 9
 
 var spawn_enemies := false
 var enemy_scene := preload("res://Objects/Scenes/enemy.tscn")
@@ -22,27 +22,16 @@ var obstacle_scene := preload("res://Objects/Scenes/obstacle_rock.tscn")
 
 func _ready() -> void:
 	length_timer.wait_time = level_length
-	
-	var obstacle_amount = randi_range(min_obstacles, max_obstacles)
-	
-	# FIXME This is where obstacles are randomly spawned in. This code doesn't prevent obstacles
-	# from spawning on top of each other, but it at least stops it from spawning on the player.
-	for obstacle in obstacle_amount:
-		var new_obstacle = obstacle_scene.instantiate()
-		obstacles.add_child(new_obstacle)
-		
-		var valid_position = false
-		while !valid_position:
-			@warning_ignore("narrowing_conversion")
-			new_obstacle.global_position = Vector2(randi_range(invis_1.global_position.x + 100, invis_2.global_position.x - 100), randi_range(invis_3.global_position.y + 100, invis_4.global_position.y - 100))
-			if new_obstacle.global_position.distance_to(level_center.global_position) >= 100:
-				valid_position = true
 
 func _on_length_timer_timeout() -> void:
 	spawn_enemies = false
 	
 	if get_tree().get_nodes_in_group("Enemy").size() == 0:
-		GlobalUI.day_complete.visible = true
+		if level.levels.get_children().size() >= day:
+			GlobalSoundManager.play_wingame_stinger()
+			GlobalUI.victory.visible = true
+		else:
+			GlobalUI.day_complete.visible = true
 
 func _on_enemy_timer_timeout() -> void:
 	if spawn_enemies:
@@ -58,3 +47,21 @@ func generate_enemies():
 		var new_enemy = enemy_scene.instantiate()
 		new_enemy.global_position = ran_spawn.global_position + Vector2(randi_range(-100, 100), randi_range(-100, 100))
 		level.enemies.add_child(new_enemy)
+	
+func generate_obstacles():
+	var obstacle_amount = randi_range(min_obstacles, max_obstacles)
+	
+	# FIXME This is where obstacles are randomly spawned in. This code doesn't prevent obstacles
+	# from spawning on top of each other, but it at least stops it from spawning on the player.
+	for obstacle in obstacle_amount:
+		var new_obstacle = obstacle_scene.instantiate()
+		obstacles.add_child(new_obstacle)
+		
+		var valid_position = false
+		while !valid_position:
+			@warning_ignore("narrowing_conversion")
+			new_obstacle.global_position = Vector2(randi_range(invis_1.global_position.x + 100, invis_2.global_position.x - 100), randi_range(invis_3.global_position.y + 100, invis_4.global_position.y - 100))
+			if new_obstacle.global_position.distance_to(level_center.global_position) >= 100:
+				valid_position = true
+				
+	$AnimationPlayer.play("day_night_cycle")
